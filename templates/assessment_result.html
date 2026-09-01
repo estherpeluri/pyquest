@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}Your Results | PyQuest{% endblock %}
+
+{% block content %}
+
+<section class="result-page">
+
+    <div class="result-card">
+
+        <div class="result-celebration">
+            {% if player.skill_level == "Beginner" %}
+                🌱
+            {% elif player.skill_level == "Intermediate" %}
+                🚀
+            {% else %}
+                🏆
+            {% endif %}
+        </div>
+
+        <p class="eyebrow">
+            ASSESSMENT COMPLETE
+        </p>
+
+        <h1>
+            Great job, {{ player.name }}! 🎉
+        </h1>
+
+        <p class="result-description">
+            We analyzed your answers and found your perfect
+            starting point for the PyQuest journey.
+        </p>
+
+
+        <div class="score-circle">
+
+            <strong>
+                {{ score }}
+            </strong>
+
+            <span>
+                / {{ total_questions }}
+            </span>
+
+        </div>
+
+
+        <div class="skill-result">
+
+            <p>
+                YOUR CURRENT LEVEL
+            </p>
+
+            <h2>
+                {% if player.skill_level == "Beginner" %}
+                    🌱 Beginner Explorer
+                {% elif player.skill_level == "Intermediate" %}
+                    🚀 Intermediate Adventurer
+                {% else %}
+                    🏆 Advanced Challenger
+                {% endif %}
+            </h2>
+
+        </div>
+
+
+        <p class="starting-point">
+            Your personalized journey will begin from
+            <strong>Level {{ player.current_level }}</strong>.
+        </p>
+
+
+        <a
+            href="{{ url_for('map_page') }}"
+            class="primary-button result-button"
+        >
+            View My Learning Journey →
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}

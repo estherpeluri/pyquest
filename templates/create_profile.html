@@ -1,0 +1,286 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="profile-page">
+
+
+<div class="profile-card">
+
+    <div class="profile-emoji">
+        🐍
+    </div>
+
+    <div class="profile-badge">
+        WELCOME TO PYQUEST
+    </div>
+
+    <h1>
+        Before we begin...
+    </h1>
+
+    <p class="profile-description">
+        Every great Python adventure needs an explorer.
+        What should we call you?
+    </p>
+
+
+    <form method="POST">
+
+        <label for="name">
+            Your Name
+        </label>
+
+        <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Enter your name"
+            maxlength="50"
+            required
+            autofocus
+        >
+
+
+        {% if error %}
+
+            <div class="profile-error">
+                ⚠️ {{ error }}
+            </div>
+
+        {% endif %}
+
+
+        <button type="submit"
+                class="profile-button">
+
+            🚀 Begin My Quest
+
+        </button>
+
+    </form>
+
+
+    <div class="profile-footer">
+
+        🎯 Your progress will be personalized
+
+        <br>
+
+        🏆 Your name will appear on your certificates
+
+    </div>
+
+</div>
+
+
+</div>
+
+<style>
+
+.profile-page {
+    min-height: 75vh;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 40px 20px;
+}
+
+
+.profile-card {
+
+    width: 100%;
+
+    max-width: 520px;
+
+    padding: 55px 45px;
+
+    text-align: center;
+
+    border-radius: 28px;
+
+    background: rgba(255, 255, 255, 0.85);
+
+    border: 1px solid rgba(0, 0, 0, 0.08);
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.10);
+}
+
+
+.profile-emoji {
+
+    font-size: 70px;
+
+    margin-bottom: 12px;
+}
+
+
+.profile-badge {
+
+    display: inline-block;
+
+    padding: 8px 18px;
+
+    margin-bottom: 20px;
+
+    border-radius: 30px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    background:
+        rgba(255, 193, 7, 0.18);
+}
+
+
+.profile-card h1 {
+
+    font-size: 38px;
+
+    margin-bottom: 15px;
+}
+
+
+.profile-description {
+
+    font-size: 17px;
+
+    line-height: 1.7;
+
+    opacity: 0.75;
+
+    margin-bottom: 35px;
+}
+
+
+.profile-card form {
+
+    text-align: left;
+}
+
+
+.profile-card label {
+
+    display: block;
+
+    margin-bottom: 10px;
+
+    font-weight: 600;
+}
+
+
+.profile-card input {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 17px 18px;
+
+    border-radius: 14px;
+
+    border:
+        1px solid rgba(0, 0, 0, 0.12);
+
+    font-size: 16px;
+
+    font-family: inherit;
+
+    outline: none;
+
+    transition: 0.2s ease;
+}
+
+
+.profile-card input:focus {
+
+    border-color: #f5a623;
+
+    box-shadow:
+        0 0 0 4px rgba(245, 166, 35, 0.12);
+}
+
+
+.profile-button {
+
+    width: 100%;
+
+    margin-top: 25px;
+
+    padding: 17px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    cursor: pointer;
+
+    font-size: 17px;
+
+    font-weight: 700;
+
+    font-family: inherit;
+
+    transition: 0.2s ease;
+}
+
+
+.profile-button:hover {
+
+    transform:
+        translateY(-2px);
+}
+
+
+.profile-error {
+
+    margin-top: 15px;
+
+    padding: 12px;
+
+    border-radius: 10px;
+
+    background:
+        rgba(255, 0, 0, 0.08);
+}
+
+
+.profile-footer {
+
+    margin-top: 30px;
+
+    font-size: 14px;
+
+    line-height: 1.8;
+
+    opacity: 0.65;
+}
+
+
+@media (max-width: 600px) {
+
+    .profile-card {
+
+        padding:
+            40px 25px;
+    }
+
+
+    .profile-card h1 {
+
+        font-size: 30px;
+    }
+
+}
+
+</style>
+
+{% endblock %}

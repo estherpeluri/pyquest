@@ -1,0 +1,1058 @@
+{% extends "base.html" %}
+
+{% block title %}World Map | PyQuest{% endblock %}
+
+
+{% block content %}
+
+<section class="map-page">
+
+
+    <!-- ================================================= -->
+    <!-- HEADER -->
+    <!-- ================================================= -->
+
+    <div class="map-header">
+
+        <div>
+
+            <span class="eyebrow">
+                YOUR PYTHON ADVENTURE
+            </span>
+
+            <h1>
+                🗺️ PyQuest World Map
+            </h1>
+
+            <p>
+                Complete challenges, earn XP, and conquer all
+                50 levels to become a PyQuest Champion.
+            </p>
+
+        </div>
+
+
+        <div class="map-player-stats">
+
+            <span>
+                ⭐ {{ player.xp or 0 }} XP
+            </span>
+
+            <span>
+                🔥 {{ player.streak or 0 }} Day Streak
+            </span>
+
+            <span>
+                🏆 {{ player.completed_levels or 0 }}/50
+            </span>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================================================= -->
+    <!-- WORLDS -->
+    <!-- ================================================= -->
+
+    <div class="worlds-container">
+
+        {% for world in worlds %}
+
+        <div class="world-card">
+
+
+            <!-- ========================================= -->
+            <!-- WORLD HEADER -->
+            <!-- ========================================= -->
+
+            <div class="world-title">
+
+                <div class="world-number">
+
+                    {% if world.number < 10 %}
+                        0{{ world.number }}
+                    {% else %}
+                        {{ world.number }}
+                    {% endif %}
+
+                </div>
+
+
+                <div>
+
+                    <span class="world-stage">
+                        PYQUEST WORLD
+                    </span>
+
+
+                    <h2>
+                        {{ world.emoji }} {{ world.name }}
+                    </h2>
+
+
+                    <p>
+                        {{ world.description }}
+                    </p>
+
+
+                    <small>
+                        Levels {{ world.levels }}
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ========================================= -->
+            <!-- LEVELS -->
+            <!-- ========================================= -->
+
+            <div class="level-grid">
+
+                {% for level in levels %}
+
+                    {% if level.world == world.name %}
+
+
+                        <!-- COMPLETED LEVEL -->
+
+                        {% if level.completed %}
+
+                        <a
+                            href="{{ url_for(
+                                'concept',
+                                level_id=level.id
+                            ) }}"
+                            class="level-node completed"
+                            title="{{ level.title }}"
+                        >
+
+                            ✓
+
+                        </a>
+
+
+                        <!-- CURRENT LEVEL -->
+
+                        {% elif level.current %}
+
+                        <a
+                            href="{{ url_for(
+                                'concept',
+                                level_id=level.id
+                            ) }}"
+                            class="level-node current"
+                            title="{{ level.title }}"
+                        >
+
+                            🎯
+
+                            <span>
+                                {{ level.id }}
+                            </span>
+
+                        </a>
+
+
+                        <!-- LOCKED LEVEL -->
+
+                        {% else %}
+
+                        <div
+                            class="level-node locked"
+                            title="Complete previous levels to unlock"
+                        >
+
+                            🔒
+
+                        </div>
+
+                        {% endif %}
+
+
+                    {% endif %}
+
+                {% endfor %}
+
+            </div>
+
+
+
+            <!-- ========================================= -->
+            <!-- WORLD PROGRESS -->
+            <!-- ========================================= -->
+
+            <div class="world-progress">
+
+
+                <div class="world-progress-header">
+
+                    <span>
+                        World Progress
+                    </span>
+
+                    <strong>
+                        {{ world.completed or 0 }}/{{ world.total or 0 }}
+                    </strong>
+
+                </div>
+
+
+
+                <div class="world-progress-bar">
+
+                    <div
+                        class="world-progress-fill"
+                        style="
+                            width: {{ world.progress_percentage or 0 }}%;
+                        "
+                    ></div>
+
+                </div>
+
+
+
+                <small>
+
+                    {% if world.total > 0 and world.completed == world.total %}
+
+                        🎉 World Completed!
+
+                    {% elif world.completed > 0 %}
+
+                        Keep going! You're making progress.
+
+                    {% else %}
+
+                        Start your adventure!
+
+                    {% endif %}
+
+                </small>
+
+
+            </div>
+
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+
+    <!-- ================================================= -->
+    <!-- LEGEND -->
+    <!-- ================================================= -->
+
+    <div class="map-legend">
+
+
+        <div>
+
+            <span class="legend completed-legend">
+                ✓
+            </span>
+
+            Completed
+
+        </div>
+
+
+        <div>
+
+            <span class="legend current-legend">
+                🎯
+            </span>
+
+            Current Level
+
+        </div>
+
+
+        <div>
+
+            <span class="legend locked-legend">
+                🔒
+            </span>
+
+            Locked
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- ================================================= -->
+    <!-- FINAL GOAL -->
+    <!-- ================================================= -->
+
+    <div class="champion-goal">
+
+        <div class="goal-icon">
+            🏆
+        </div>
+
+
+        <div>
+
+            <h2>
+                The Final Quest
+            </h2>
+
+
+            <p>
+                Complete all 50 levels and become a
+                PyQuest Champion!
+            </p>
+
+        </div>
+
+    </div>
+
+
+</section>
+
+
+
+<style>
+
+/* =========================================================
+   MAP PAGE
+========================================================= */
+
+.map-page {
+
+    max-width: 1250px;
+
+    margin: auto;
+
+    padding:
+        50px
+        25px
+        80px;
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.map-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 30px;
+
+    margin-bottom: 50px;
+
+}
+
+
+.eyebrow {
+
+    display: inline-block;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    opacity: 0.6;
+
+    margin-bottom: 10px;
+
+}
+
+
+.map-header h1 {
+
+    font-size: 42px;
+
+    margin:
+        5px
+        0
+        15px;
+
+}
+
+
+.map-header p {
+
+    max-width: 600px;
+
+    line-height: 1.7;
+
+    opacity: 0.7;
+
+}
+
+
+/* =========================================================
+   PLAYER STATS
+========================================================= */
+
+.map-player-stats {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 10px;
+
+}
+
+
+.map-player-stats span {
+
+    padding:
+        12px
+        18px;
+
+    border-radius: 30px;
+
+    background:
+        rgba(0, 0, 0, 0.05);
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+}
+
+
+/* =========================================================
+   WORLDS CONTAINER
+========================================================= */
+
+.worlds-container {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(420px, 1fr)
+        );
+
+    gap: 25px;
+
+}
+
+
+/* =========================================================
+   WORLD CARD
+========================================================= */
+
+.world-card {
+
+    padding: 30px;
+
+    border-radius: 25px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.85
+        );
+
+    border:
+        1px solid
+        rgba(
+            0,
+            0,
+            0,
+            0.08
+        );
+
+    box-shadow:
+        0 15px 45px
+        rgba(
+            0,
+            0,
+            0,
+            0.06
+        );
+
+    transition:
+        0.25s ease;
+
+}
+
+
+.world-card:hover {
+
+    transform:
+        translateY(-4px);
+
+}
+
+
+/* =========================================================
+   WORLD TITLE
+========================================================= */
+
+.world-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    margin-bottom: 25px;
+
+}
+
+
+.world-number {
+
+    width: 55px;
+
+    height: 55px;
+
+    border-radius: 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 18px;
+
+    font-weight: 900;
+
+    background:
+        rgba(
+            245,
+            166,
+            35,
+            0.15
+        );
+
+}
+
+
+.world-stage {
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    opacity: 0.55;
+
+}
+
+
+.world-title h2 {
+
+    margin:
+        5px
+        0;
+
+    font-size: 24px;
+
+}
+
+
+.world-title p {
+
+    margin:
+        5px
+        0;
+
+    font-size: 14px;
+
+    opacity: 0.7;
+
+}
+
+
+.world-title small {
+
+    opacity: 0.55;
+
+}
+
+
+/* =========================================================
+   LEVEL GRID
+========================================================= */
+
+.level-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            5,
+            1fr
+        );
+
+    gap: 12px;
+
+}
+
+
+.level-node {
+
+    aspect-ratio: 1;
+
+    min-height: 55px;
+
+    border-radius: 16px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-decoration: none;
+
+    font-size: 20px;
+
+    font-weight: 800;
+
+    transition:
+        0.2s ease;
+
+}
+
+
+/* =========================================================
+   COMPLETED LEVEL
+========================================================= */
+
+.level-node.completed {
+
+    background:
+        rgba(
+            46,
+            204,
+            113,
+            0.18
+        );
+
+    border:
+        2px solid
+        rgba(
+            46,
+            204,
+            113,
+            0.6
+        );
+
+}
+
+
+.level-node.completed:hover {
+
+    transform:
+        scale(1.08);
+
+}
+
+
+/* =========================================================
+   CURRENT LEVEL
+========================================================= */
+
+.level-node.current {
+
+    flex-direction: column;
+
+    background:
+        rgba(
+            245,
+            166,
+            35,
+            0.20
+        );
+
+    border:
+        2px solid
+        rgba(
+            245,
+            166,
+            35,
+            0.9
+        );
+
+    animation:
+        pulse
+        2s
+        infinite;
+
+}
+
+
+.level-node.current span {
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================================
+   LOCKED LEVEL
+========================================================= */
+
+.level-node.locked {
+
+    cursor:
+        not-allowed;
+
+    background:
+        rgba(
+            0,
+            0,
+            0,
+            0.05
+        );
+
+    opacity:
+        0.5;
+
+}
+
+
+/* =========================================================
+   ANIMATION
+========================================================= */
+
+@keyframes pulse {
+
+    0% {
+
+        transform:
+            scale(1);
+
+    }
+
+    50% {
+
+        transform:
+            scale(1.08);
+
+    }
+
+    100% {
+
+        transform:
+            scale(1);
+
+    }
+
+}
+
+
+/* =========================================================
+   WORLD PROGRESS
+========================================================= */
+
+.world-progress {
+
+    margin-top: 25px;
+
+}
+
+
+.world-progress-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 10px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+}
+
+
+.world-progress-bar {
+
+    width: 100%;
+
+    height: 9px;
+
+    overflow: hidden;
+
+    border-radius: 20px;
+
+    background:
+        rgba(
+            0,
+            0,
+            0,
+            0.08
+        );
+
+}
+
+
+.world-progress-fill {
+
+    height: 100%;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #f5a623,
+            #ffc107
+        );
+
+    transition:
+        width
+        0.5s
+        ease;
+
+}
+
+
+.world-progress small {
+
+    display: block;
+
+    margin-top: 10px;
+
+    font-size: 12px;
+
+    opacity: 0.6;
+
+}
+
+
+/* =========================================================
+   LEGEND
+========================================================= */
+
+.map-legend {
+
+    display: flex;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 30px;
+
+    margin:
+        50px
+        0
+        35px;
+
+}
+
+
+.map-legend div {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+}
+
+
+.legend {
+
+    width: 35px;
+
+    height: 35px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 10px;
+
+}
+
+
+.completed-legend {
+
+    background:
+        rgba(
+            46,
+            204,
+            113,
+            0.18
+        );
+
+}
+
+
+.current-legend {
+
+    background:
+        rgba(
+            245,
+            166,
+            35,
+            0.18
+        );
+
+}
+
+
+.locked-legend {
+
+    background:
+        rgba(
+            0,
+            0,
+            0,
+            0.05
+        );
+
+}
+
+
+/* =========================================================
+   FINAL GOAL
+========================================================= */
+
+.champion-goal {
+
+    max-width: 650px;
+
+    margin: auto;
+
+    padding: 30px;
+
+    border-radius: 24px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 20px;
+
+    background:
+        rgba(
+            255,
+            193,
+            7,
+            0.12
+        );
+
+}
+
+
+.goal-icon {
+
+    font-size: 50px;
+
+}
+
+
+.champion-goal h2 {
+
+    margin:
+        0
+        0
+        8px;
+
+}
+
+
+.champion-goal p {
+
+    margin: 0;
+
+    opacity: 0.7;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (
+    max-width: 700px
+) {
+
+    .map-header {
+
+        flex-direction:
+            column;
+
+        align-items:
+            flex-start;
+
+    }
+
+
+    .map-header h1 {
+
+        font-size: 32px;
+
+    }
+
+
+    .worlds-container {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .world-card {
+
+        padding: 22px;
+
+    }
+
+
+    .level-grid {
+
+        gap: 8px;
+
+    }
+
+
+    .level-node {
+
+        min-height: 48px;
+
+    }
+
+}
+
+</style>
+
+
+{% endblock %}

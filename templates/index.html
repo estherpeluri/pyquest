@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>PyQuest | Learn Python. Level Up.</title>
+
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar">
+
+    <div class="brand">
+
+        <div class="brand-python">
+
+            🐍
+
+        </div>
+
+
+        <div>
+
+            <div class="brand-name">
+
+                PYQUEST
+
+            </div>
+
+
+            <div class="brand-tagline">
+
+                Learn Python. Level Up.
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="nav-links">
+
+        <a href="#features">
+
+            Features
+
+        </a>
+
+
+        <a href="#journey">
+
+            Journey
+
+        </a>
+
+
+        <a href="#certificates">
+
+            Certificates
+
+        </a>
+
+
+        {% if user %}
+
+            <a
+                href="{{ url_for('map_page') }}"
+                class="nav-button"
+            >
+
+                🗺️ Continue Quest
+
+            </a>
+
+        {% else %}
+
+            <a
+                href="{{ url_for('start') }}"
+                class="nav-button"
+            >
+
+                🚀 Start Quest
+
+            </a>
+
+        {% endif %}
+
+    </div>
+
+</nav>
+
+
+
+<!-- =====================================================
+     HERO SECTION
+===================================================== -->
+
+<section class="hero">
+
+
+    <!-- =================================================
+         LEFT SIDE
+    ================================================= -->
+
+    <div class="hero-content">
+
+
+        {% if user %}
+
+            <div class="hero-badge">
+
+                👋 WELCOME BACK, PYTHON EXPLORER!
+
+            </div>
+
+        {% else %}
+
+            <div class="hero-badge">
+
+                🐍 YOUR PYTHON ADVENTURE STARTS HERE
+
+            </div>
+
+        {% endif %}
+
+
+
+        {% if user %}
+
+            <h1>
+
+                Your Python
+                <span>Quest Continues.</span>
+
+            </h1>
+
+
+            <p class="hero-description">
+
+                Your next challenge is waiting.
+
+                <br>
+
+                Keep solving problems, earning XP,
+                and moving closer to becoming a
+                PyQuest Champion.
+
+            </p>
+
+
+        {% else %}
+
+            <h1>
+
+                Learn Python.
+                <span>Level Up.</span>
+
+            </h1>
+
+
+            <p class="hero-description">
+
+                Stop memorizing code.
+                Start solving challenges.
+
+                <br>
+
+                Learn Python through an exciting
+                level-by-level coding adventure.
+
+            </p>
+
+        {% endif %}
+
+
+
+        <!-- HERO BUTTONS -->
+
+        <div class="hero-buttons">
+
+
+            {% if user %}
+
+                <a
+                    href="{{ url_for('map_page') }}"
+                    class="primary-button"
+                >
+
+                    🗺️ Continue Your Quest
+
+                </a>
+
+
+            {% else %}
+
+                <a
+                    href="{{ url_for('start') }}"
+                    class="primary-button"
+                >
+
+                    🚀 Start Your Quest
+
+                </a>
+
+            {% endif %}
+
+
+
+            <a
+                href="#journey"
+                class="secondary-button"
+            >
+
+                🗺️ Explore the Journey
+
+            </a>
+
+        </div>
+
+
+
+        <!-- =================================================
+             QUICK STATS
+        ================================================= -->
+
+        <div class="hero-stats">
+
+
+            <!-- 50 CHALLENGES -->
+
+            <div class="stat">
+
+                <strong>
+
+                    {% if user %}
+
+                        {{ user.completed_levels or 0 }}/50
+
+                    {% else %}
+
+                        50
+
+                    {% endif %}
+
+                </strong>
+
+
+                <span>
+
+                    {% if user %}
+
+                        Levels Completed
+
+                    {% else %}
+
+                        Python Challenges
+
+                    {% endif %}
+
+                </span>
+
+            </div>
+
+
+
+            <div class="stat-divider"></div>
+
+
+
+            <!-- STREAK -->
+
+            <div class="stat">
+
+                <strong>
+
+                    🔥
+
+                </strong>
+
+
+                <span>
+
+                    {% if user %}
+
+                        {{ user.streak or 0 }} Day Streak
+
+                    {% else %}
+
+                        Daily Streaks
+
+                    {% endif %}
+
+                </span>
+
+            </div>
+
+
+
+            <div class="stat-divider"></div>
+
+
+
+            <!-- CHAMPION -->
+
+            <div class="stat">
+
+                <strong>
+
+                    🏆
+
+                </strong>
+
+
+                <span>
+
+                    PyQuest Champion
+
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         GAME PREVIEW
+    ================================================= -->
+
+    <div class="hero-game">
+
+
+        <div class="game-card">
+
+
+            <!-- GAME HEADER -->
+
+            <div class="game-top">
+
+                <span>
+
+                    🐍 PYQUEST
+
+                </span>
+
+
+                <span class="mini-level">
+
+                    {% if user %}
+
+                        LEVEL {{ user.current_level or 1 }}
+
+                    {% else %}
+
+                        LEVEL 01
+
+                    {% endif %}
+
+                </span>
+
+            </div>
+
+
+
+            <!-- CHARACTER AREA -->
+
+            <div class="character-area">
+
+
+                <div class="character-glow">
+
+                </div>
+
+
+                <div class="python-character">
+
+                    🐍
+
+                </div>
+
+
+
+                <div class="speech-bubble">
+
+
+                    {% if user %}
+
+                        🎯 Your next challenge is waiting!
+
+                        <br>
+
+                        Ready to level up?
+
+                    {% else %}
+
+                        👋 Hey Python Explorer!
+
+                        <br>
+
+                        Ready for your first quest?
+
+                    {% endif %}
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- LEVEL PREVIEW -->
+
+            <div class="game-level">
+
+
+                <div class="level-number">
+
+                    {% if user %}
+
+                        {{ user.current_level or 1 }}
+
+                    {% else %}
+
+                        01
+
+                    {% endif %}
+
+                </div>
+
+
+
+                <div>
+
+
+                    {% if user %}
+
+                        <h3>
+
+                            Continue Your Adventure!
+
+                        </h3>
+
+
+                        <p>
+
+                            Your next coding challenge awaits.
+
+                        </p>
+
+
+                    {% else %}
+
+                        <h3>
+
+                            Hello, Python!
+
+                        </h3>
+
+
+                        <p>
+
+                            Your first coding challenge
+
+                        </p>
+
+                    {% endif %}
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PROGRESS PREVIEW
+            ================================================= -->
+
+            <div class="progress-preview">
+
+
+                <div class="progress-label">
+
+
+                    <span>
+
+                        Quest Progress
+
+                    </span>
+
+
+                    <span>
+
+                        {% if user %}
+
+                            {{ ((user.completed_levels or 0) / 50 * 100)|round|int }}%
+
+                        {% else %}
+
+                            0%
+
+                        {% endif %}
+
+                    </span>
+
+
+                </div>
+
+
+
+                <div class="progress-bar">
+
+
+                    <div
+                        class="progress-fill"
+
+                        {% if user %}
+
+                            style="
+                                width:
+                                {{ ((user.completed_levels or 0) / 50 * 100) }}%;
+                            "
+
+                        {% endif %}
+
+                    >
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             FLOATING ITEMS
+        ================================================= -->
+
+        <div class="floating-card floating-one">
+
+            💡 Smart Hints
+
+        </div>
+
+
+        <div class="floating-card floating-two">
+
+            🔥 Keep Your Streak
+
+        </div>
+
+
+        <div class="floating-card floating-three">
+
+            🏆 Become Champion
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+
+
+<!-- =====================================================
+     WHY PYQUEST
+===================================================== -->
+
+<section class="intro-section">
+
+
+    <div class="section-heading">
+
+
+        <div class="section-label">
+
+            ✨ A DIFFERENT WAY TO LEARN
+
+        </div>
+
+
+        <h2>
+
+            Python doesn't have to feel difficult.
+
+        </h2>
+
+
+        <p>
+
+            PyQuest turns your learning journey into
+            a game where every problem takes you
+            one step closer to becoming a confident
+            Python programmer.
+
+        </p>
+
+
+    </div>
+
+
+
+    <div class="intro-cards">
+
+
+        <!-- CARD 1 -->
+
+        <div class="intro-card">
+
+
+            <div class="intro-icon">
+
+                🎮
+
+            </div>
+
+
+            <h3>
+
+                Learn Like a Game
+
+            </h3>
+
+
+            <p>
+
+                Progress through levels and worlds
+                instead of staring at endless tutorials.
+
+            </p>
+
+
+        </div>
+
+
+
+        <!-- CARD 2 -->
+
+        <div class="intro-card">
+
+
+            <div class="intro-icon">
+
+                🧠
+
+            </div>
+
+
+            <h3>
+
+                Understand the Logic
+
+            </h3>
+
+
+            <p>
+
+                Learn concepts, understand the logic,
+                and solve coding challenges step by step.
+
+            </p>
+
+
+        </div>
+
+
+
+        <!-- CARD 3 -->
+
+        <div class="intro-card">
+
+
+            <div class="intro-icon">
+
+                🏆
+
+            </div>
+
+
+            <h3>
+
+                Build Your Achievement
+
+            </h3>
+
+
+            <p>
+
+                Maintain streaks, earn XP,
+                complete milestones and become
+                a PyQuest Champion.
+
+            </p>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+
+
+<!-- =====================================================
+     FEATURES
+===================================================== -->
+
+<section
+    class="features-section"
+    id="features"
+>
+
+
+    <div class="section-heading">
+
+
+        <div class="section-label">
+
+            🧩 YOUR PYQUEST TOOLKIT
+
+        </div>
+
+
+        <h2>
+
+            Everything you need to level up.
+
+        </h2>
+
+
+    </div>
+
+
+
+    <div class="feature-grid">
+
+
+        <!-- FEATURE 01 -->
+
+        <div class="feature-card feature-large">
+
+
+            <div class="feature-number">
+
+                01
+
+            </div>
+
+
+            <div class="feature-icon">
+
+                🗺️
+
+            </div>
+
+
+            <h3>
+
+                Adventure Map
+
+            </h3>
+
+
+            <p>
+
+                Explore your PyQuest journey through
+                worlds and levels designed to build
+                your Python problem-solving skills.
+
+            </p>
+
+
+            <div class="feature-mini">
+
+                🌱 Start
+                →
+                🧠 Learn
+                →
+                💻 Solve
+                →
+                🏆 Champion
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- FEATURE 02 -->
+
+        <div class="feature-card">
+
+
+            <div class="feature-number">
+
+                02
+
+            </div>
+
+
+            <div class="feature-icon">
+
+                💡
+
+            </div>
+
+
+            <h3>
+
+                Learn Before You Code
+
+            </h3>
+
+
+            <p>
+
+                Understand the concept,
+                see the challenge and think
+                like a programmer before coding.
+
+            </p>
+
+
+        </div>
+
+
+
+        <!-- FEATURE 03 -->
+
+        <div class="feature-card">
+
+
+            <div class="feature-number">
+
+                03
+
+            </div>
+
+
+            <div class="feature-icon">
+
+                🎯
+
+            </div>
+
+
+            <h3>
+
+                Coding Challenges
+
+            </h3>
+
+
+            <p>
+
+                Solve carefully designed
+                Python challenges and unlock
+                the next level.
+
+            </p>
+
+
+        </div>
+
+
+
+        <!-- FEATURE 04 -->
+
+        <div class="feature-card">
+
+
+            <div class="feature-number">
+
+                04
+
+            </div>
+
+
+            <div class="feature-icon">
+
+                🔥
+
+            </div>
+
+
+            <h3>
+
+                Daily Streaks
+
+            </h3>
+
+
+            <p>
+
+                Practice consistently and
+                watch your learning streak
+                continue to grow.
+
+            </p>
+
+
+        </div>
+
+
+
+        <!-- FEATURE 05 -->
+
+        <div class="feature-card">
+
+
+            <div class="feature-number">
+
+                05
+
+            </div>
+
+
+            <div class="feature-icon">
+
+                ⭐
+
+            </div>
+
+
+            <h3>
+
+                Earn XP
+
+            </h3>
+
+
+            <p>
+
+                Complete challenges,
+                earn experience points
+                and track your progress.
+
+            </p>
+
+
+        </div>
+
+
+
+        <!-- FEATURE 06 -->
+
+        <div class="feature-card">
+
+
+            <div class="feature-number">
+
+                06
+
+            </div>
+
+
+            <div class="feature-icon">
+
+                🏆
+
+            </div>
+
+
+            <h3>
+
+                Champion Goal
+
+            </h3>
+
+
+            <p>
+
+                Complete all 50 levels
+                and unlock the ultimate
+                PyQuest achievement.
+
+            </p>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+
+
+<!-- =====================================================
+     JOURNEY
+===================================================== -->
+
+<section
+    class="journey-section"
+    id="journey"
+>
+
+
+    <div class="section-heading">
+
+
+        <div class="section-label">
+
+            🗺️ YOUR JOURNEY
+
+        </div>
+
+
+        <h2>
+
+            Your Python adventure begins here.
+
+        </h2>
+
+
+        <p>
+
+            Learn step by step.
+            Solve challenges.
+            Unlock new levels.
+            No rushing. No lives.
+
+        </p>
+
+
+    </div>
+
+
+
+    <div class="journey-line">
+
+
+        <!-- STEP 01 -->
+
+        <div class="journey-step">
+
+
+            <div class="journey-circle">
+
+                01
+
+            </div>
+
+
+            <div class="journey-world">
+
+                🐍
+
+            </div>
+
+
+            <h3>
+
+                Candy Lane
+
+            </h3>
+
+
+            <p>
+
+                Build your Python foundations
+                and begin your coding adventure.
+
+            </p>
+
+
+            <small>
+
+                Levels 1–25
+
+            </small>
+
+
+        </div>
+
+
+
+        <!-- STEP 02 -->
+
+        <div class="journey-step">
+
+
+            <div class="journey-circle">
+
+                02
+
+            </div>
+
+
+            <div class="journey-world">
+
+                🎪
+
+            </div>
+
+
+            <h3>
+
+                Logic Carnival
+
+            </h3>
+
+
+            <p>
+
+                Strengthen your logic and
+                problem-solving skills.
+
+            </p>
+
+
+            <small>
+
+                Levels 26–50
+
+            </small>
+
+
+        </div>
+
+
+
+        <!-- FINAL -->
+
+        <div class="journey-step">
+
+
+            <div class="journey-circle">
+
+                🏆
+
+            </div>
+
+
+            <div class="journey-world">
+
+                👑
+
+            </div>
+
+
+            <h3>
+
+                PyQuest Champion
+
+            </h3>
+
+
+            <p>
+
+                Complete all 50 challenges
+                and conquer your first quest.
+
+            </p>
+
+
+            <small>
+
+                Final Goal
+
+            </small>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+
+
+<!-- =====================================================
+     CERTIFICATE
+===================================================== -->
+
+<section
+    class="certificate-section"
+    id="certificates"
+>
+
+
+    <div class="certificate-text">
+
+
+        <div class="section-label">
+
+            🏆 YOUR ACHIEVEMENT
+
+        </div>
+
+
+        <h2>
+
+            Your progress deserves
+            something you can keep.
+
+        </h2>
+
+
+        <p>
+
+            Complete PyQuest milestones
+            and celebrate the progress
+            you have made on your
+            Python learning journey.
+
+        </p>
+
+
+        <div class="certificate-points">
+
+
+            <div>
+
+                ✓ Achievement Based
+
+            </div>
+
+
+            <div>
+
+                ✓ Personalized
+
+            </div>
+
+
+            <div>
+
+                ✓ Printable
+
+            </div>
+
+
+            <div>
+
+                ✓ PyQuest Milestone
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- CERTIFICATE PREVIEW -->
+
+    <div class="certificate-preview">
+
+
+        <div class="certificate-inner">
+
+
+            <div class="certificate-logo">
+
+                🐍
+
+            </div>
+
+
+            <div class="certificate-brand">
+
+                PYQUEST
+
+            </div>
+
+
+            <div class="certificate-title">
+
+                CERTIFICATE OF ACHIEVEMENT
+
+            </div>
+
+
+            <div class="certificate-presented">
+
+                This certificate is proudly presented to
+
+            </div>
+
+
+            <div class="certificate-name">
+
+                {% if user %}
+
+                    {{ user.name or "PYTHON EXPLORER" }}
+
+                {% else %}
+
+                    PYTHON EXPLORER
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="certificate-description">
+
+                for successfully completing
+
+                <strong>
+
+                    PYQUEST PYTHON JOURNEY
+
+                </strong>
+
+            </div>
+
+
+            <div class="certificate-stats">
+
+                ⭐ 50 Levels
+
+                &nbsp;&nbsp; | &nbsp;&nbsp;
+
+                🏆 PyQuest Champion
+
+            </div>
+
+
+            <div class="certificate-footer">
+
+
+                <span>
+
+                    PyQuest
+
+                </span>
+
+
+                <span>
+
+                    Learn Python. Level Up.
+
+                </span>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+
+
+<!-- =====================================================
+     FINAL CTA
+===================================================== -->
+
+<section class="final-section">
+
+
+    <div class="final-character">
+
+        🐍
+
+    </div>
+
+
+
+    <div class="final-content">
+
+
+        <div class="section-label">
+
+            🚀 YOUR QUEST AWAITS
+
+        </div>
+
+
+
+        {% if user %}
+
+
+            <h2>
+
+                Your next challenge
+                is waiting.
+
+            </h2>
+
+
+            <p>
+
+                Keep going, keep learning,
+                and keep leveling up.
+
+            </p>
+
+
+            <a
+                href="{{ url_for('map_page') }}"
+                class="primary-button"
+            >
+
+                🗺️ Continue Quest
+
+            </a>
+
+
+        {% else %}
+
+
+            <h2>
+
+                Ready to write your
+                first Python program?
+
+            </h2>
+
+
+            <p>
+
+                Your first level is waiting.
+
+                Let's begin the adventure.
+
+            </p>
+
+
+            <a
+                href="{{ url_for('start') }}"
+                class="primary-button"
+            >
+
+                🐍 Begin PyQuest
+
+            </a>
+
+
+        {% endif %}
+
+
+    </div>
+
+
+</section>
+
+
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+
+    <div class="footer-brand">
+
+        🐍
+
+        <strong>
+
+            PYQUEST
+
+        </strong>
+
+    </div>
+
+
+    <p>
+
+        Learn Python. Level Up. 🚀
+
+    </p>
+
+
+    <p class="copyright">
+
+        © 2026 PyQuest.
+
+        Built for Python learners.
+
+    </p>
+
+
+</footer>
+
+
+
+
+
+<script
+    src="{{ url_for('static', filename='js/script.js') }}"
+></script>
+
+
+</body>
+
+</html>

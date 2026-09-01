@@ -1,0 +1,799 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="certificate-page">
+
+
+<div class="certificate-wrapper">
+
+    <div class="certificate-glow"></div>
+
+    <div class="certificate">
+
+        <div class="certificate-top">
+
+            <div class="certificate-logo">
+                🐍
+            </div>
+
+            <div>
+                <div class="certificate-brand">
+                    PYQUEST
+                </div>
+
+                <div class="certificate-tagline">
+                    Learn Python. Level Up.
+                </div>
+            </div>
+
+            <div class="certificate-badge">
+                🏆
+            </div>
+
+        </div>
+
+
+        <div class="certificate-content">
+
+            <div class="certificate-small-title">
+                CERTIFICATE OF ACHIEVEMENT
+            </div>
+
+            <h1>
+                Congratulations!
+            </h1>
+
+            <p class="certificate-presented">
+                This certificate is proudly presented to
+            </p>
+
+
+            <!-- USER NAME -->
+
+            <div class="certificate-name">
+                {{ user.name }}
+            </div>
+
+
+            <div class="certificate-line"></div>
+
+
+            <p class="certificate-description">
+
+                for successfully completing a learning milestone
+                in the PyQuest Python Learning Adventure.
+
+            </p>
+
+
+            <div class="certificate-achievement">
+
+                <div class="achievement-item">
+
+                    <span class="achievement-icon">
+                        🐍
+                    </span>
+
+                    <div>
+                        <strong>Python Explorer</strong>
+                        <p>Completed PyQuest Challenges</p>
+                    </div>
+
+                </div>
+
+
+                <div class="achievement-item">
+
+                    <span class="achievement-icon">
+                        ⚡
+                    </span>
+
+                    <div>
+                        <strong>{{ user.xp or 0 }} XP</strong>
+                        <p>Experience Earned</p>
+                    </div>
+
+                </div>
+
+
+                <div class="achievement-item">
+
+                    <span class="achievement-icon">
+                        🔥
+                    </span>
+
+                    <div>
+                        <strong>{{ user.streak or 0 }} Day Streak</strong>
+                        <p>Learning Consistency</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="certificate-footer">
+
+                <div class="certificate-date">
+
+                    <span>DATE OF ACHIEVEMENT</span>
+
+                    <strong>
+                        {{ current_date }}
+                    </strong>
+
+                </div>
+
+
+                <div class="certificate-signature">
+
+                    <div class="signature-name">
+                        PyQuest
+                    </div>
+
+                    <div class="signature-line"></div>
+
+                    <span>PYQUEST LEARNING PLATFORM</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="certificate-corner top-left"></div>
+        <div class="certificate-corner top-right"></div>
+        <div class="certificate-corner bottom-left"></div>
+        <div class="certificate-corner bottom-right"></div>
+
+    </div>
+
+</div>
+
+
+<div class="certificate-actions">
+
+    <a href="{{ url_for('map_page') }}"
+       class="secondary-btn">
+
+        🗺️ Back to Adventure
+
+    </a>
+
+
+    <button onclick="window.print()"
+            class="primary-btn">
+
+        🖨️ Print Certificate
+
+    </button>
+
+</div>
+
+
+</div>
+
+<style>
+
+/* =========================================================
+   CERTIFICATE PAGE
+========================================================= */
+
+.certificate-page {
+
+    min-height: 100vh;
+
+    padding:
+        60px
+        20px
+        80px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+}
+
+
+/* =========================================================
+   WRAPPER
+========================================================= */
+
+.certificate-wrapper {
+
+    width: 100%;
+
+    max-width: 1050px;
+
+    position: relative;
+
+}
+
+
+.certificate-glow {
+
+    position: absolute;
+
+    inset: 30px;
+
+    filter: blur(60px);
+
+    opacity: 0.25;
+
+    border-radius: 50px;
+
+    z-index: -1;
+
+}
+
+
+/* =========================================================
+   CERTIFICATE
+========================================================= */
+
+.certificate {
+
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: 28px;
+
+    background: white;
+
+    padding: 18px;
+
+    box-shadow:
+
+        0 25px 70px
+        rgba(0,0,0,0.12);
+
+    border:
+
+        2px solid
+        rgba(255,193,7,0.5);
+
+}
+
+
+.certificate-content {
+
+    text-align: center;
+
+    padding:
+
+        55px
+        70px
+        60px;
+
+    border-radius: 18px;
+
+    border:
+
+        2px solid
+        rgba(0,0,0,0.05);
+
+}
+
+
+/* =========================================================
+   TOP
+========================================================= */
+
+.certificate-top {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding:
+
+        22px
+        35px;
+
+}
+
+
+.certificate-logo {
+
+    font-size: 42px;
+
+}
+
+
+.certificate-brand {
+
+    font-size: 24px;
+
+    font-weight: 900;
+
+    letter-spacing: 3px;
+
+}
+
+
+.certificate-tagline {
+
+    font-size: 13px;
+
+    opacity: 0.6;
+
+    margin-top: 4px;
+
+}
+
+
+.certificate-badge {
+
+    font-size: 45px;
+
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.certificate-small-title {
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    letter-spacing: 4px;
+
+    opacity: 0.55;
+
+}
+
+
+.certificate h1 {
+
+    font-size: 52px;
+
+    margin:
+
+        18px
+        0;
+
+}
+
+
+.certificate-presented {
+
+    font-size: 17px;
+
+    opacity: 0.7;
+
+}
+
+
+/* =========================================================
+   USER NAME
+========================================================= */
+
+.certificate-name {
+
+    font-size: 48px;
+
+    font-weight: 800;
+
+    margin:
+
+        28px
+        0
+        12px;
+
+    letter-spacing: 1px;
+
+}
+
+
+.certificate-line {
+
+    width: 55%;
+
+    height: 2px;
+
+    margin:
+
+        0 auto
+        30px;
+
+    background:
+
+        rgba(0,0,0,0.15);
+
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.certificate-description {
+
+    max-width: 650px;
+
+    margin:
+
+        0 auto
+        40px;
+
+    font-size: 18px;
+
+    line-height: 1.8;
+
+    opacity: 0.7;
+
+}
+
+
+/* =========================================================
+   ACHIEVEMENTS
+========================================================= */
+
+.certificate-achievement {
+
+    display: grid;
+
+    grid-template-columns:
+
+        repeat(
+            3,
+            1fr
+        );
+
+    gap: 18px;
+
+    margin-top: 20px;
+
+}
+
+
+.achievement-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    text-align: left;
+
+    padding:
+
+        18px;
+
+    border-radius: 16px;
+
+    background:
+
+        rgba(0,0,0,0.03);
+
+}
+
+
+.achievement-icon {
+
+    font-size: 30px;
+
+}
+
+
+.achievement-item strong {
+
+    font-size: 17px;
+
+}
+
+
+.achievement-item p {
+
+    font-size: 12px;
+
+    margin-top: 4px;
+
+    opacity: 0.6;
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.certificate-footer {
+
+    margin-top: 55px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-end;
+
+    text-align: left;
+
+}
+
+
+.certificate-date span {
+
+    display: block;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    opacity: 0.6;
+
+}
+
+
+.certificate-date strong {
+
+    display: block;
+
+    margin-top: 8px;
+
+    font-size: 15px;
+
+}
+
+
+.certificate-signature {
+
+    text-align: center;
+
+}
+
+
+.signature-name {
+
+    font-size: 28px;
+
+    font-style: italic;
+
+    margin-bottom: 5px;
+
+}
+
+
+.signature-line {
+
+    width: 220px;
+
+    height: 1px;
+
+    background:
+
+        rgba(0,0,0,0.4);
+
+}
+
+
+.certificate-signature span {
+
+    display: block;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+
+    margin-top: 8px;
+
+    opacity: 0.6;
+
+}
+
+
+/* =========================================================
+   CORNERS
+========================================================= */
+
+.certificate-corner {
+
+    position: absolute;
+
+    width: 45px;
+
+    height: 45px;
+
+    border:
+
+        3px solid
+        rgba(255,193,7,0.7);
+
+}
+
+
+.top-left {
+
+    top: 18px;
+
+    left: 18px;
+
+    border-right: none;
+
+    border-bottom: none;
+
+}
+
+
+.top-right {
+
+    top: 18px;
+
+    right: 18px;
+
+    border-left: none;
+
+    border-bottom: none;
+
+}
+
+
+.bottom-left {
+
+    bottom: 18px;
+
+    left: 18px;
+
+    border-right: none;
+
+    border-top: none;
+
+}
+
+
+.bottom-right {
+
+    bottom: 18px;
+
+    right: 18px;
+
+    border-left: none;
+
+    border-top: none;
+
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.certificate-actions {
+
+    display: flex;
+
+    gap: 15px;
+
+    margin-top: 35px;
+
+}
+
+
+.certificate-actions a {
+
+    text-decoration: none;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 750px) {
+
+    .certificate-content {
+
+        padding:
+
+            40px
+            25px;
+
+    }
+
+
+    .certificate h1 {
+
+        font-size: 38px;
+
+    }
+
+
+    .certificate-name {
+
+        font-size: 34px;
+
+    }
+
+
+    .certificate-achievement {
+
+        grid-template-columns:
+
+            1fr;
+
+    }
+
+
+    .certificate-footer {
+
+        flex-direction: column;
+
+        gap: 30px;
+
+        align-items: center;
+
+        text-align: center;
+
+    }
+
+
+    .certificate-top {
+
+        padding:
+
+            20px;
+
+    }
+
+
+    .certificate-brand {
+
+        font-size: 19px;
+
+    }
+
+}
+
+
+/* =========================================================
+   PRINT
+========================================================= */
+
+@media print {
+
+    body {
+
+        background: white;
+
+    }
+
+
+    nav,
+    .certificate-actions {
+
+        display: none;
+
+    }
+
+
+    .certificate-page {
+
+        padding: 0;
+
+    }
+
+
+    .certificate {
+
+        box-shadow: none;
+
+    }
+
+}
+
+</style>
+
+{% endblock %}

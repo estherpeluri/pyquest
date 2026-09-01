@@ -1,0 +1,754 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="success-page">
+
+    <div class="success-card">
+
+        <div class="success-confetti">
+
+            🎉 🐍 ⭐ 🎯 🚀
+
+        </div>
+
+
+        <div class="success-trophy">
+
+            🏆
+
+        </div>
+
+
+        <div class="success-badge">
+
+            LEVEL COMPLETE
+
+        </div>
+
+
+        <h1>
+
+            Amazing Work!
+
+        </h1>
+
+
+        <p class="success-message">
+
+            You successfully completed
+
+            <strong>
+
+                Level {{ level_id }}
+
+            </strong>
+
+        </p>
+
+
+        <div class="level-completed">
+
+            <div class="completed-label">
+
+                YOU COMPLETED
+
+            </div>
+
+            <h2>
+
+                {{ level.title }}
+
+            </h2>
+
+            <p>
+
+                {{ level.concept }}
+
+            </p>
+
+        </div>
+
+
+        <div class="reward-section">
+
+            <div class="reward-card">
+
+                <span class="reward-icon">
+
+                    ⚡
+
+                </span>
+
+                <div>
+
+                    <strong>
+
+                        +10 XP
+
+                    </strong>
+
+                    <small>
+
+                        Experience earned
+
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="reward-card">
+
+                <span class="reward-icon">
+
+                    🔥
+
+                </span>
+
+                <div>
+
+                    <strong>
+
+                        {{ player.streak or 0 }} Day Streak
+
+                    </strong>
+
+                    <small>
+
+                        Keep learning daily!
+
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="progress-section">
+
+            <div class="progress-header">
+
+                <span>
+
+                    Your Quest Progress
+
+                </span>
+
+                <strong>
+
+                    {{ player.completed_levels or 0 }}/10
+
+                </strong>
+
+            </div>
+
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    style="
+                        width:
+                        {{ ((player.completed_levels or 0) / 10 * 100)|round }}%;
+                    "
+                >
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="success-actions">
+
+
+            {% if next_level <= 10 %}
+
+                <a
+                    href="{{ url_for('concept', level_id=next_level) }}"
+                    class="next-button"
+                >
+
+                    Continue to Level {{ next_level }}
+
+                    🚀
+
+                </a>
+
+
+            {% else %}
+
+                <a
+                    href="{{ url_for('map_page') }}"
+                    class="next-button"
+                >
+
+                    🗺️ Return to Adventure Map
+
+                </a>
+
+            {% endif %}
+
+
+            <a
+                href="{{ url_for('map_page') }}"
+                class="map-button"
+            >
+
+                🗺️ View Adventure Map
+
+            </a>
+
+
+        </div>
+
+
+        <div class="motivation">
+
+            💡 Every level completed makes you a stronger Python programmer.
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<style>
+
+
+/* =========================================================
+   SUCCESS PAGE
+========================================================= */
+
+.success-page {
+
+    min-height: 80vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding:
+
+        50px
+        20px;
+
+}
+
+
+/* =========================================================
+   SUCCESS CARD
+========================================================= */
+
+.success-card {
+
+    width: 100%;
+
+    max-width: 650px;
+
+    padding:
+
+        50px
+        45px;
+
+    text-align: center;
+
+    border-radius: 30px;
+
+    background:
+
+        rgba(
+            255,
+            255,
+            255,
+            0.9
+        );
+
+    border:
+
+        1px solid
+        rgba(
+            0,
+            0,
+            0,
+            0.08
+        );
+
+    box-shadow:
+
+        0
+        25px
+        70px
+        rgba(
+            0,
+            0,
+            0,
+            0.12
+        );
+
+    position: relative;
+
+    overflow: hidden;
+
+}
+
+
+/* =========================================================
+   CONFETTI
+========================================================= */
+
+.success-confetti {
+
+    font-size: 22px;
+
+    letter-spacing: 18px;
+
+    margin-bottom: 10px;
+
+    opacity: 0.85;
+
+}
+
+
+/* =========================================================
+   TROPHY
+========================================================= */
+
+.success-trophy {
+
+    font-size: 85px;
+
+    margin:
+
+        10px
+        0
+        15px;
+
+}
+
+
+/* =========================================================
+   BADGE
+========================================================= */
+
+.success-badge {
+
+    display: inline-block;
+
+    padding:
+
+        9px
+        20px;
+
+    border-radius: 30px;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    background:
+
+        rgba(
+            255,
+            193,
+            7,
+            0.18
+        );
+
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.success-card h1 {
+
+    font-size: 42px;
+
+    margin:
+
+        20px
+        0
+        10px;
+
+}
+
+
+.success-message {
+
+    font-size: 17px;
+
+    opacity: 0.7;
+
+    margin-bottom: 30px;
+
+}
+
+
+/* =========================================================
+   COMPLETED LEVEL
+========================================================= */
+
+.level-completed {
+
+    padding:
+
+        25px;
+
+    border-radius: 20px;
+
+    background:
+
+        rgba(
+            0,
+            0,
+            0,
+            0.03
+        );
+
+    margin-bottom: 25px;
+
+}
+
+
+.completed-label {
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    opacity: 0.55;
+
+}
+
+
+.level-completed h2 {
+
+    margin:
+
+        10px
+        0
+        8px;
+
+    font-size: 26px;
+
+}
+
+
+.level-completed p {
+
+    margin: 0;
+
+    opacity: 0.65;
+
+}
+
+
+/* =========================================================
+   REWARDS
+========================================================= */
+
+.reward-section {
+
+    display: grid;
+
+    grid-template-columns:
+
+        repeat(
+            2,
+            1fr
+        );
+
+    gap: 15px;
+
+    margin-bottom: 30px;
+
+}
+
+
+.reward-card {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    padding:
+
+        18px;
+
+    border-radius: 16px;
+
+    background:
+
+        rgba(
+            0,
+            0,
+            0,
+            0.03
+        );
+
+    text-align: left;
+
+}
+
+
+.reward-icon {
+
+    font-size: 32px;
+
+}
+
+
+.reward-card strong {
+
+    display: block;
+
+    font-size: 16px;
+
+}
+
+
+.reward-card small {
+
+    display: block;
+
+    margin-top: 4px;
+
+    opacity: 0.6;
+
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.progress-section {
+
+    margin-bottom: 30px;
+
+}
+
+
+.progress-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 10px;
+
+    font-size: 14px;
+
+}
+
+
+.progress-bar {
+
+    width: 100%;
+
+    height: 12px;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    background:
+
+        rgba(
+            0,
+            0,
+            0,
+            0.08
+        );
+
+}
+
+
+.progress-fill {
+
+    height: 100%;
+
+    border-radius: 20px;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #f5a623,
+            #ffd166
+        );
+
+    transition:
+
+        width
+        0.5s
+        ease;
+
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.success-actions {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 14px;
+
+}
+
+
+.success-actions a {
+
+    text-decoration: none;
+
+    padding:
+
+        16px;
+
+    border-radius: 14px;
+
+    font-weight: 700;
+
+    font-size: 16px;
+
+    transition:
+
+        0.2s
+        ease;
+
+}
+
+
+.next-button {
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #f5a623,
+            #ffcc33
+        );
+
+    color: #222;
+
+}
+
+
+.next-button:hover {
+
+    transform:
+
+        translateY(
+            -2px
+        );
+
+}
+
+
+.map-button {
+
+    background:
+
+        rgba(
+            0,
+            0,
+            0,
+            0.04
+        );
+
+    color: inherit;
+
+}
+
+
+/* =========================================================
+   MOTIVATION
+========================================================= */
+
+.motivation {
+
+    margin-top: 28px;
+
+    font-size: 13px;
+
+    opacity: 0.6;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+
+    .success-card {
+
+        padding:
+
+            40px
+            22px;
+
+    }
+
+
+    .success-card h1 {
+
+        font-size: 34px;
+
+    }
+
+
+    .success-trophy {
+
+        font-size: 70px;
+
+    }
+
+
+    .reward-section {
+
+        grid-template-columns:
+
+            1fr;
+
+    }
+
+
+    .success-confetti {
+
+        letter-spacing: 8px;
+
+    }
+
+}
+
+
+</style>
+
+
+{% endblock %}

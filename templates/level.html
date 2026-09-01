@@ -1,0 +1,1339 @@
+{% extends "base.html" %}
+
+{% block title %}
+Level {{ level_id }} | PyQuest
+{% endblock %}
+
+
+{% block extra_css %}
+
+<style>
+
+/* ============================================================
+   PYQUEST LEVEL PAGE
+============================================================ */
+
+.level-page {
+    min-height: calc(100vh - 90px);
+    background: #f8f6fc;
+    padding: 35px 5% 70px;
+}
+
+
+/* ============================================================
+   TOP BAR
+============================================================ */
+
+.level-topbar {
+    max-width: 1250px;
+    margin: 0 auto 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+.back-map {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 10px 15px;
+
+    background: white;
+
+    border: 1px solid #e6e1ef;
+    border-radius: 12px;
+
+    color: #625d70;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    transition: 0.25s ease;
+}
+
+.back-map:hover {
+    color: #7657e8;
+    border-color: #7657e8;
+    transform: translateX(-3px);
+}
+
+
+.level-progress-area {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.level-progress-text {
+    color: #777287;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.level-progress {
+    width: 180px;
+    height: 8px;
+
+    background: #e7e3ef;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+.level-progress-fill {
+    height: 100%;
+
+    background: #7657e8;
+
+    border-radius: 20px;
+}
+
+
+/* ============================================================
+   LEVEL HEADER
+============================================================ */
+
+.level-header {
+    max-width: 1250px;
+    margin: 0 auto 25px;
+
+    background: white;
+
+    border: 1px solid #e7e2ef;
+
+    border-radius: 22px;
+
+    padding: 22px 25px;
+
+    display: flex;
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 25px;
+
+    box-shadow: 0 8px 30px rgba(50, 40, 90, 0.06);
+}
+
+.level-heading-left {
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+}
+
+.level-number-big {
+    width: 65px;
+    height: 65px;
+
+    flex-shrink: 0;
+
+    border-radius: 18px;
+
+    background: #7657e8;
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: "Baloo 2", cursive;
+
+    font-size: 26px;
+    font-weight: 800;
+
+    box-shadow: 0 8px 20px rgba(118, 87, 232, 0.22);
+}
+
+.level-world {
+    color: #7657e8;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+}
+
+.level-title {
+    font-family: "Baloo 2", cursive;
+
+    font-size: 30px;
+
+    line-height: 1.05;
+
+    margin-top: 3px;
+}
+
+.difficulty-badge {
+    padding: 8px 13px;
+
+    border-radius: 10px;
+
+    background: #f0ebff;
+
+    color: #7657e8;
+
+    font-size: 10px;
+
+    font-weight: 800;
+}
+
+
+/* ============================================================
+   MAIN LEVEL GRID
+============================================================ */
+
+.level-content {
+    max-width: 1250px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: 0.9fr 1.4fr;
+
+    gap: 25px;
+
+    align-items: start;
+}
+
+
+/* ============================================================
+   LEFT SIDE
+============================================================ */
+
+.challenge-side {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+
+/* ============================================================
+   CHARACTER CARD
+============================================================ */
+
+.character-card {
+    background: white;
+
+    border: 1px solid #e7e2ef;
+
+    border-radius: 22px;
+
+    overflow: hidden;
+
+    box-shadow: 0 8px 30px rgba(50, 40, 90, 0.06);
+}
+
+.character-scene {
+    min-height: 250px;
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            #ffffff 0%,
+            #f1edff 55%,
+            #e8e2ff 100%
+        );
+
+    overflow: hidden;
+}
+
+.character-scene::before {
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    border-radius: 50%;
+
+    background: rgba(118, 87, 232, 0.10);
+}
+
+.bear-character {
+    font-size: 105px;
+
+    position: relative;
+
+    z-index: 2;
+
+    animation: bearMove 3s ease-in-out infinite;
+}
+
+@keyframes bearMove {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(-3deg);
+    }
+
+    50% {
+        transform: translateY(-9px) rotate(3deg);
+    }
+}
+
+
+/* ============================================================
+   BOARD
+============================================================ */
+
+.mini-board {
+    position: absolute;
+
+    top: 20px;
+    right: 20px;
+
+    width: 120px;
+
+    padding: 12px;
+
+    background: #292633;
+
+    color: white;
+
+    border-radius: 8px;
+
+    font-family: monospace;
+
+    font-size: 9px;
+
+    line-height: 1.6;
+
+    box-shadow: 0 8px 20px rgba(30, 25, 45, 0.2);
+}
+
+.mini-board-title {
+    color: #ffc857;
+
+    font-size: 8px;
+
+    margin-bottom: 5px;
+
+    font-weight: bold;
+}
+
+
+/* ============================================================
+   SPEECH BUBBLE
+============================================================ */
+
+.character-message {
+    position: absolute;
+
+    left: 18px;
+    top: 18px;
+
+    max-width: 180px;
+
+    padding: 11px 13px;
+
+    background: white;
+
+    border-radius: 14px;
+
+    font-size: 10px;
+
+    line-height: 1.5;
+
+    font-weight: 600;
+
+    box-shadow: 0 7px 20px rgba(50, 40, 90, 0.10);
+
+    z-index: 5;
+}
+
+.character-message::after {
+    content: "";
+
+    position: absolute;
+
+    bottom: -7px;
+    left: 25px;
+
+    width: 14px;
+    height: 14px;
+
+    background: white;
+
+    transform: rotate(45deg);
+}
+
+
+/* ============================================================
+   QUESTION CARD
+============================================================ */
+
+.question-card {
+    padding: 23px;
+
+    background: white;
+
+    border: 1px solid #e7e2ef;
+
+    border-radius: 22px;
+
+    box-shadow: 0 8px 30px rgba(50, 40, 90, 0.06);
+}
+
+.question-label {
+    color: #7657e8;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.8px;
+
+    margin-bottom: 8px;
+}
+
+.question-card h2 {
+    font-family: "Baloo 2", cursive;
+
+    font-size: 25px;
+
+    line-height: 1.2;
+
+    margin-bottom: 10px;
+}
+
+.question-card p {
+    color: #737080;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+}
+
+
+/* ============================================================
+   HELP TOOLKIT
+============================================================ */
+
+.help-card {
+    padding: 20px;
+
+    background: white;
+
+    border: 1px solid #e7e2ef;
+
+    border-radius: 22px;
+
+    box-shadow: 0 8px 30px rgba(50, 40, 90, 0.06);
+}
+
+.help-heading {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 13px;
+}
+
+.help-heading h3 {
+    font-family: "Baloo 2", cursive;
+
+    font-size: 20px;
+}
+
+.help-heading span {
+    font-size: 17px;
+}
+
+.help-buttons {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 8px;
+}
+
+.help-button {
+    border: 1px solid #e5e0ef;
+
+    background: #faf9fd;
+
+    border-radius: 11px;
+
+    padding: 11px 5px;
+
+    text-align: center;
+
+    color: #625e70;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.help-button:hover {
+    background: #f0ebff;
+
+    color: #7657e8;
+
+    border-color: #d8d0f7;
+}
+
+.help-button span {
+    display: block;
+
+    font-size: 17px;
+
+    margin-bottom: 4px;
+}
+
+
+/* ============================================================
+   HELP BOX
+============================================================ */
+
+.help-box {
+    margin-top: 14px;
+
+    padding: 15px;
+
+    border-radius: 13px;
+
+    background: #f6f3ff;
+
+    border: 1px solid #e3dcfa;
+
+    color: #625b76;
+
+    font-size: 11px;
+
+    line-height: 1.7;
+}
+
+.help-box strong {
+    display: block;
+
+    color: #7657e8;
+
+    margin-bottom: 4px;
+}
+
+
+/* ============================================================
+   RIGHT CODE SIDE
+============================================================ */
+
+.editor-card {
+    background: #201e29;
+
+    border-radius: 22px;
+
+    overflow: hidden;
+
+    box-shadow: 0 18px 45px rgba(30, 25, 45, 0.17);
+}
+
+
+/* ============================================================
+   EDITOR HEADER
+============================================================ */
+
+.editor-header {
+    height: 55px;
+
+    padding: 0 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    background: #292633;
+
+    border-bottom: 1px solid #383441;
+}
+
+.editor-left {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+.window-dot {
+    width: 9px;
+    height: 9px;
+
+    border-radius: 50%;
+
+    background: #77717f;
+}
+
+.file-name {
+    margin-left: 8px;
+
+    color: #c5c0cf;
+
+    font-size: 10px;
+
+    font-family: monospace;
+}
+
+.python-label {
+    padding: 6px 10px;
+
+    border-radius: 7px;
+
+    background: #383343;
+
+    color: #c9c2d5;
+
+    font-size: 9px;
+
+    font-weight: 700;
+}
+
+
+/* ============================================================
+   CODE EDITOR
+============================================================ */
+
+.code-area {
+    padding: 20px;
+
+    min-height: 220px;
+}
+
+.code-editor {
+    width: 100%;
+
+    min-height: 220px;
+
+    resize: vertical;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    color: #eeeaf4;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 14px;
+
+    line-height: 1.8;
+
+    tab-size: 4;
+}
+
+.code-editor::placeholder {
+    color: #686273;
+}
+
+
+/* ============================================================
+   EDITOR FOOTER
+============================================================ */
+
+.editor-footer {
+    padding: 14px 18px;
+
+    background: #292633;
+
+    border-top: 1px solid #383441;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    justify-content: space-between !important;
+
+    gap: 15px;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    position: relative;
+
+    z-index: 100;
+}
+
+
+.editor-tip {
+    color: #85808f;
+
+    font-size: 9px;
+
+    flex: 1;
+}
+
+
+/* ============================================================
+   SUBMIT BUTTON
+============================================================ */
+
+.submit-button {
+    display: inline-flex !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    visibility: visible !important;
+
+    opacity: 1 !important;
+
+    border: none !important;
+
+    padding: 13px 22px !important;
+
+    min-width: 145px !important;
+
+    min-height: 45px !important;
+
+    border-radius: 11px !important;
+
+    background: #7657e8 !important;
+
+    color: white !important;
+
+    font-family: "Poppins", sans-serif !important;
+
+    font-size: 12px !important;
+
+    font-weight: 800 !important;
+
+    line-height: 1.2 !important;
+
+    white-space: nowrap !important;
+
+    cursor: pointer !important;
+
+    box-shadow: 0 8px 18px rgba(118, 87, 232, 0.25) !important;
+
+    transition: 0.25s ease !important;
+
+    position: relative !important;
+
+    z-index: 999 !important;
+
+    flex-shrink: 0 !important;
+
+    overflow: visible !important;
+}
+
+
+.submit-button:hover:not(:disabled) {
+    background: #5940c9 !important;
+
+    transform: translateY(-2px);
+}
+
+
+.submit-button:disabled {
+    opacity: 0.7 !important;
+
+    cursor: not-allowed !important;
+
+    transform: none !important;
+}
+
+
+/* ============================================================
+   ERROR MESSAGE
+============================================================ */
+
+.error-message {
+    max-width: 1250px;
+
+    margin: 0 auto 20px;
+
+    padding: 14px 18px;
+
+    border-radius: 14px;
+
+    background: #fff0f3;
+
+    border: 1px solid #ffd3dc;
+
+    color: #c34d69;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+
+/* ============================================================
+   CONCEPT TAG
+============================================================ */
+
+.concept-tag {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    margin-top: 15px;
+
+    padding: 7px 10px;
+
+    background: #f3f0ff;
+
+    border-radius: 8px;
+
+    color: #7657e8;
+
+    font-size: 9px;
+
+    font-weight: 800;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+
+@media (max-width: 950px) {
+
+    .level-content {
+        grid-template-columns: 1fr;
+    }
+
+    .challenge-side {
+        display: grid;
+
+        grid-template-columns: 1fr 1fr;
+
+        align-items: start;
+    }
+
+    .help-card {
+        grid-column: span 2;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .level-page {
+        padding: 25px 4% 50px;
+    }
+
+    .level-topbar {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .level-progress-area {
+        width: 100%;
+    }
+
+    .level-progress {
+        flex: 1;
+    }
+
+    .level-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .level-title {
+        font-size: 25px;
+    }
+
+    .challenge-side {
+        display: flex;
+    }
+
+    .help-card {
+        grid-column: auto;
+    }
+
+    .character-scene {
+        min-height: 230px;
+    }
+
+    .bear-character {
+        font-size: 85px;
+    }
+
+    .mini-board {
+        width: 105px;
+
+        font-size: 8px;
+    }
+
+    .help-buttons {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .editor-footer {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .submit-button {
+        width: 100%;
+    }
+
+}
+
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="level-page">
+
+
+    <!-- ====================================================
+         TOP BAR
+    ===================================================== -->
+
+    <div class="level-topbar">
+
+        <a href="{{ url_for('map_page') }}"
+           class="back-map">
+
+            ← 🗺️ Quest Map
+
+        </a>
+
+
+        <div class="level-progress-area">
+
+            <span class="level-progress-text">
+                Level {{ level_id }} / 50
+            </span>
+
+            <div class="level-progress">
+
+                <div class="level-progress-fill"
+                     style="width: {{ ((level_id / 50 * 100) if level_id <= 50 else 100)|round(1) }}%;">
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ====================================================
+         LEVEL HEADER
+    ===================================================== -->
+
+    <div class="level-header">
+
+        <div class="level-heading-left">
+
+            <div class="level-number-big">
+                {{ "%02d"|format(level_id) }}
+            </div>
+
+            <div>
+
+                <div class="level-world">
+                    {{ level.world }}
+                </div>
+
+                <div class="level-title">
+                    {{ level.title }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="difficulty-badge">
+            {{ level.difficulty }}
+        </div>
+
+    </div>
+
+
+
+    <!-- ====================================================
+         ERROR
+    ===================================================== -->
+
+    {% if error %}
+
+    <div class="error-message">
+
+        ❌ {{ error }}
+
+        <br>
+
+        <small>
+            Don't worry — there are no lives to lose.
+            Take your time and try again! 💜
+        </small>
+
+    </div>
+
+    {% endif %}
+
+
+
+    <!-- ====================================================
+         MAIN CONTENT
+    ===================================================== -->
+
+    <div class="level-content">
+
+
+        <!-- LEFT SIDE -->
+
+        <div class="challenge-side">
+
+
+            <!-- CHARACTER -->
+
+            <div class="character-card">
+
+                <div class="character-scene">
+
+
+                    <div class="character-message">
+
+                        {% if error %}
+
+                            Hmm... 🤔
+
+                            <br>
+
+                            Let's look at the problem
+                            one more time!
+
+                        {% else %}
+
+                            Hey, Python Explorer! 👋
+
+                            <br>
+
+                            Let's solve this quest
+                            together!
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="mini-board">
+
+                        <div class="mini-board-title">
+                            🐻 TODAY'S CONCEPT
+                        </div>
+
+                        {{ level.concept }}
+
+                    </div>
+
+
+                    <div class="bear-character">
+                        🐻
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- QUESTION -->
+
+            <div class="question-card">
+
+                <div class="question-label">
+                    🎯 YOUR QUEST
+                </div>
+
+                <h2>
+                    {{ level.title }}
+                </h2>
+
+                <p>
+                    {{ level.question }}
+                </p>
+
+
+                <div class="concept-tag">
+                    🧠 {{ level.concept }}
+                </div>
+
+            </div>
+
+
+
+            <!-- HELP TOOLKIT -->
+
+            <div class="help-card">
+
+                <div class="help-heading">
+
+                    <h3>
+                        Need a little help?
+                    </h3>
+
+                    <span>
+                        💡
+                    </span>
+
+                </div>
+
+
+                <div class="help-buttons">
+
+
+                    <button
+                        type="button"
+                        class="help-button"
+                        onclick="showHelp('hint')">
+
+                        <span>💡</span>
+
+                        Hint
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="help-button"
+                        onclick="showHelp('help')">
+
+                        <span>🆘</span>
+
+                        Help
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="help-button"
+                        onclick="showHelp('pseudo')">
+
+                        <span>📝</span>
+
+                        Pseudocode
+
+                    </button>
+
+                </div>
+
+
+                <div id="helpBox"
+                     class="help-box"
+                     style="display:none;">
+
+                    <strong id="helpTitle"></strong>
+
+                    <div id="helpContent"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             RIGHT SIDE — CODE EDITOR
+        ================================================== -->
+
+        <div class="editor-card">
+
+
+            <div class="editor-header">
+
+                <div class="editor-left">
+
+                    <span class="window-dot"></span>
+                    <span class="window-dot"></span>
+                    <span class="window-dot"></span>
+
+                    <span class="file-name">
+                        challenge.py
+                    </span>
+
+                </div>
+
+
+                <div class="python-label">
+                    🐍 Python
+                </div>
+
+            </div>
+
+
+
+            <!--
+                IMPORTANT:
+                No action URL is used here.
+
+                This makes the form POST back to the SAME current
+                level URL, avoiding any wrong endpoint-name issue.
+            -->
+
+            <form
+                id="codeForm"
+                method="POST"
+                action="{{ url_for('check_code', level_id=level_id) }}"
+                novalidate>
+
+
+                <div class="code-area">
+
+<textarea
+    id="codeEditor"
+    name="code"
+    class="code-editor"
+    placeholder="Write your Python code here...
+
+Example:
+
+print(&quot;Hello, Python!&quot;)
+
+Take your time. There are no lives. 💜"
+    spellcheck="false">{{ code if code is defined and code else level.starter_code }}</textarea>
+
+                </div>
+
+
+
+                <div class="editor-footer">
+
+                    <div class="editor-tip">
+
+                        💡 Tip:
+                        Read the question carefully
+                        before coding.
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        id="submitButton"
+                        class="submit-button">
+
+                        ▶ Run & Submit
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ========================================================
+     HELP DATA
+========================================================= -->
+
+<script>
+
+const levelHint = {{ level.hint|default('Think about the concept and try solving the problem step by step.')|tojson }};
+
+const levelHelp = {{ level.help|default('Read the question carefully and break the problem into smaller steps.')|tojson }};
+
+const levelPseudo = {{ level.pseudo|default('1. Understand the input.\\n2. Process the data.\\n3. Display the result.')|tojson }};
+
+
+function showHelp(type) {
+
+    const box = document.getElementById("helpBox");
+
+    const title = document.getElementById("helpTitle");
+
+    const content = document.getElementById("helpContent");
+
+
+    if (type === "hint") {
+
+        title.innerHTML = "💡 Hint";
+
+        content.textContent = levelHint;
+
+    }
+
+
+    else if (type === "help") {
+
+        title.innerHTML = "🆘 Help";
+
+        content.textContent = levelHelp;
+
+    }
+
+
+    else if (type === "pseudo") {
+
+        title.innerHTML = "📝 Pseudocode";
+
+        content.textContent = levelPseudo;
+
+    }
+
+
+    box.style.display = "block";
+
+    box.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest"
+    });
+
+}
+
+</script>
+
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+{% endblock %}

@@ -1,0 +1,1168 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="assessment-page">
+
+    <div class="assessment-header">
+
+        <div class="assessment-icons">
+            🐍 🎯
+        </div>
+
+        <h1>Find Your PyQuest Level</h1>
+
+        <p>
+            Let's see what you already know before your Python adventure begins.
+        </p>
+
+        <div class="assessment-badge">
+            🏅 Placement Assessment
+        </div>
+
+        <div class="assessment-info">
+            30 Questions • 10 Easy • 10 Hard • 10 Very Hard
+            <br>
+            Your score will help PyQuest choose a starting level for you.
+        </div>
+
+    </div>
+
+
+    <form method="POST"
+          action="{{ url_for('assessment') }}"
+          id="assessmentForm">
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 1 -->
+        <!-- ================================================= -->
+
+        <div class="question-card">
+            <div class="question-number">Question 1 / 30</div>
+
+            <h2>Which function is used to display output in Python?</h2>
+
+            <label>
+                <input type="radio" name="q1" value="print" required>
+                print()
+            </label>
+
+            <label>
+                <input type="radio" name="q1" value="input">
+                input()
+            </label>
+
+            <label>
+                <input type="radio" name="q1" value="display">
+                display()
+            </label>
+
+            <label>
+                <input type="radio" name="q1" value="show">
+                show()
+            </label>
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 2 -->
+        <!-- ================================================= -->
+
+        <div class="question-card">
+            <div class="question-number">Question 2 / 30</div>
+
+            <h2>Which symbol is used to assign a value to a variable?</h2>
+
+            <label>
+                <input type="radio" name="q2" value="=" required>
+                =
+            </label>
+
+            <label>
+                <input type="radio" name="q2" value="==">
+                ==
+            </label>
+
+            <label>
+                <input type="radio" name="q2" value="!=">
+                !=
+            </label>
+
+            <label>
+                <input type="radio" name="q2" value="=>">
+                =>
+            </label>
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 3 -->
+        <!-- ================================================= -->
+
+        <div class="question-card">
+            <div class="question-number">Question 3 / 30</div>
+
+            <h2>What is the output of <code>print(5 + 3)</code>?</h2>
+
+            <label>
+                <input type="radio" name="q3" value="8" required>
+                8
+            </label>
+
+            <label>
+                <input type="radio" name="q3" value="53">
+                53
+            </label>
+
+            <label>
+                <input type="radio" name="q3" value="2">
+                2
+            </label>
+
+            <label>
+                <input type="radio" name="q3" value="error">
+                Error
+            </label>
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 4 -->
+        <!-- ================================================= -->
+
+        <div class="question-card">
+            <div class="question-number">Question 4 / 30</div>
+
+            <h2>Which function is used to receive input from the user?</h2>
+
+            <label>
+                <input type="radio" name="q4" value="input" required>
+                input()
+            </label>
+
+            <label>
+                <input type="radio" name="q4" value="scan">
+                scan()
+            </label>
+
+            <label>
+                <input type="radio" name="q4" value="read">
+                read()
+            </label>
+
+            <label>
+                <input type="radio" name="q4" value="get">
+                get()
+            </label>
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 5 -->
+        <!-- ================================================= -->
+
+        <div class="question-card">
+            <div class="question-number">Question 5 / 30</div>
+
+            <h2>Which operator gives the remainder after division?</h2>
+
+            <label>
+                <input type="radio" name="q5" value="%" required>
+                %
+            </label>
+
+            <label>
+                <input type="radio" name="q5" value="/">
+                /
+            </label>
+
+            <label>
+                <input type="radio" name="q5" value="//">
+                //
+            </label>
+
+            <label>
+                <input type="radio" name="q5" value="**">
+                **
+            </label>
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 6 -->
+        <!-- ================================================= -->
+
+        <div class="question-card">
+            <div class="question-number">Question 6 / 30</div>
+
+            <h2>Which keyword is used to create a condition?</h2>
+
+            <label>
+                <input type="radio" name="q6" value="if" required>
+                if
+            </label>
+
+            <label>
+                <input type="radio" name="q6" value="when">
+                when
+            </label>
+
+            <label>
+                <input type="radio" name="q6" value="check">
+                check
+            </label>
+
+            <label>
+                <input type="radio" name="q6" value="condition">
+                condition
+            </label>
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 7 -->
+        <!-- ================================================= -->
+
+        <div class="question-card">
+            <div class="question-number">Question 7 / 30</div>
+
+            <h2>Which data type is used for whole numbers?</h2>
+
+            <label>
+                <input type="radio" name="q7" value="int" required>
+                int
+            </label>
+
+            <label>
+                <input type="radio" name="q7" value="float">
+                float
+            </label>
+
+            <label>
+                <input type="radio" name="q7" value="str">
+                str
+            </label>
+
+            <label>
+                <input type="radio" name="q7" value="bool">
+                bool
+            </label>
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 8 -->
+        <!-- ================================================= -->
+
+        <div class="question-card">
+            <div class="question-number">Question 8 / 30</div>
+
+            <h2>
+                Which technique stores results of previously solved
+                subproblems?
+            </h2>
+
+            <label>
+                <input type="radio" name="q8" value="memoization" required>
+                Memoization
+            </label>
+
+            <label>
+                <input type="radio" name="q8" value="recursion">
+                Recursion only
+            </label>
+
+            <label>
+                <input type="radio" name="q8" value="sorting">
+                Sorting
+            </label>
+
+            <label>
+                <input type="radio" name="q8" value="collision">
+                Hash collision
+            </label>
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 9 -->
+        <!-- ================================================= -->
+
+        <div class="question-card">
+            <div class="question-number">Question 9 / 30</div>
+
+            <h2>Which collection is ordered and mutable?</h2>
+
+            <label>
+                <input type="radio" name="q9" value="list" required>
+                List
+            </label>
+
+            <label>
+                <input type="radio" name="q9" value="tuple">
+                Tuple
+            </label>
+
+            <label>
+                <input type="radio" name="q9" value="set">
+                Set
+            </label>
+
+            <label>
+                <input type="radio" name="q9" value="string">
+                String
+            </label>
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 10 -->
+        <!-- ================================================= -->
+
+        <div class="question-card">
+            <div class="question-number">Question 10 / 30</div>
+
+            <h2>Which keyword is used to create a function?</h2>
+
+            <label>
+                <input type="radio" name="q10" value="def" required>
+                def
+            </label>
+
+            <label>
+                <input type="radio" name="q10" value="function">
+                function
+            </label>
+
+            <label>
+                <input type="radio" name="q10" value="fun">
+                fun
+            </label>
+
+            <label>
+                <input type="radio" name="q10" value="create">
+                create
+            </label>
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 11 -->
+        <!-- ================================================= -->
+
+        <div class="question-card">
+            <div class="question-number">Question 11 / 30</div>
+
+            <h2>What does <code>len()</code> return?</h2>
+
+            <label>
+                <input type="radio" name="q11" value="length" required>
+                Length of an object
+            </label>
+
+            <label>
+                <input type="radio" name="q11" value="type">
+                Data type
+            </label>
+
+            <label>
+                <input type="radio" name="q11" value="memory">
+                Memory address
+            </label>
+
+            <label>
+                <input type="radio" name="q11" value="index">
+                Index
+            </label>
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 12 -->
+        <!-- ================================================= -->
+
+        <div class="question-card">
+            <div class="question-number">Question 12 / 30</div>
+
+            <h2>Which loop is commonly used to iterate over a sequence?</h2>
+
+            <label>
+                <input type="radio" name="q12" value="for" required>
+                for
+            </label>
+
+            <label>
+                <input type="radio" name="q12" value="repeat">
+                repeat
+            </label>
+
+            <label>
+                <input type="radio" name="q12" value="iterate">
+                iterate
+            </label>
+
+            <label>
+                <input type="radio" name="q12" value="loop">
+                loop
+            </label>
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 13 -->
+        <!-- ================================================= -->
+
+        <div class="question-card">
+            <div class="question-number">Question 13 / 30</div>
+
+            <h2>What does <code>range(5)</code> produce?</h2>
+
+            <label>
+                <input type="radio" name="q13" value="0-4" required>
+                Numbers from 0 to 4
+            </label>
+
+            <label>
+                <input type="radio" name="q13" value="1-5">
+                Numbers from 1 to 5
+            </label>
+
+            <label>
+                <input type="radio" name="q13" value="0-5">
+                Numbers from 0 to 5
+            </label>
+
+            <label>
+                <input type="radio" name="q13" value="5">
+                Only 5
+            </label>
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 14 -->
+        <!-- ================================================= -->
+
+        <div class="question-card">
+            <div class="question-number">Question 14 / 30</div>
+
+            <h2>Which keyword exits a loop immediately?</h2>
+
+            <label>
+                <input type="radio" name="q14" value="break" required>
+                break
+            </label>
+
+            <label>
+                <input type="radio" name="q14" value="stop">
+                stop
+            </label>
+
+            <label>
+                <input type="radio" name="q14" value="exit">
+                exit
+            </label>
+
+            <label>
+                <input type="radio" name="q14" value="end">
+                end
+            </label>
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 15 -->
+        <!-- ================================================= -->
+
+        <div class="question-card">
+            <div class="question-number">Question 15 / 30</div>
+
+            <h2>Which keyword skips the current loop iteration?</h2>
+
+            <label>
+                <input type="radio" name="q15" value="continue" required>
+                continue
+            </label>
+
+            <label>
+                <input type="radio" name="q15" value="skip">
+                skip
+            </label>
+
+            <label>
+                <input type="radio" name="q15" value="pass">
+                pass
+            </label>
+
+            <label>
+                <input type="radio" name="q15" value="next">
+                next
+            </label>
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 16 -->
+        <!-- ================================================= -->
+
+        <div class="question-card">
+            <div class="question-number">Question 16 / 30</div>
+
+            <h2>Which data structure stores key-value pairs?</h2>
+
+            <label>
+                <input type="radio" name="q16" value="dict" required>
+                Dictionary
+            </label>
+
+            <label>
+                <input type="radio" name="q16" value="list">
+                List
+            </label>
+
+            <label>
+                <input type="radio" name="q16" value="tuple">
+                Tuple
+            </label>
+
+            <label>
+                <input type="radio" name="q16" value="set">
+                Set
+            </label>
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 17 -->
+        <!-- ================================================= -->
+
+        <div class="question-card">
+            <div class="question-number">Question 17 / 30</div>
+
+            <h2>Which data structure automatically removes duplicate values?</h2>
+
+            <label>
+                <input type="radio" name="q17" value="set" required>
+                Set
+            </label>
+
+            <label>
+                <input type="radio" name="q17" value="list">
+                List
+            </label>
+
+            <label>
+                <input type="radio" name="q17" value="tuple">
+                Tuple
+            </label>
+
+            <label>
+                <input type="radio" name="q17" value="dict">
+                Dictionary
+            </label>
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 18 -->
+        <!-- ================================================= -->
+
+        <div class="question-card">
+            <div class="question-number">Question 18 / 30</div>
+
+            <h2>What is the average time complexity of dictionary lookup?</h2>
+
+            <label>
+                <input type="radio" name="q18" value="o1" required>
+                O(1)
+            </label>
+
+            <label>
+                <input type="radio" name="q18" value="on">
+                O(n)
+            </label>
+
+            <label>
+                <input type="radio" name="q18" value="logn">
+                O(log n)
+            </label>
+
+            <label>
+                <input type="radio" name="q18" value="n2">
+                O(n²)
+            </label>
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 19 -->
+        <!-- ================================================= -->
+
+        <div class="question-card">
+            <div class="question-number">Question 19 / 30</div>
+
+            <h2>Which keyword is used to handle exceptions?</h2>
+
+            <label>
+                <input type="radio" name="q19" value="try" required>
+                try
+            </label>
+
+            <label>
+                <input type="radio" name="q19" value="catch">
+                catch
+            </label>
+
+            <label>
+                <input type="radio" name="q19" value="handle">
+                handle
+            </label>
+
+            <label>
+                <input type="radio" name="q19" value="error">
+                error
+            </label>
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 20 -->
+        <!-- ================================================= -->
+
+        <div class="question-card">
+            <div class="question-number">Question 20 / 30</div>
+
+            <h2>What is recursion?</h2>
+
+            <label>
+                <input type="radio" name="q20" value="self" required>
+                A function calling itself
+            </label>
+
+            <label>
+                <input type="radio" name="q20" value="loop">
+                A loop only
+            </label>
+
+            <label>
+                <input type="radio" name="q20" value="sorting">
+                A sorting algorithm
+            </label>
+
+            <label>
+                <input type="radio" name="q20" value="variable">
+                A type of variable
+            </label>
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 21 -->
+        <!-- ================================================= -->
+
+        <div class="question-card">
+            <div class="question-number">Question 21 / 30</div>
+
+            <h2>What is the purpose of a base case in recursion?</h2>
+
+            <label>
+                <input type="radio" name="q21" value="stop" required>
+                To stop recursive calls
+            </label>
+
+            <label>
+                <input type="radio" name="q21" value="start">
+                To start a loop
+            </label>
+
+            <label>
+                <input type="radio" name="q21" value="sort">
+                To sort data
+            </label>
+
+            <label>
+                <input type="radio" name="q21" value="memory">
+                To allocate memory
+            </label>
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 22 -->
+        <!-- ================================================= -->
+
+        <div class="question-card">
+            <div class="question-number">Question 22 / 30</div>
+
+            <h2>Which technique is useful for finding a target in a sorted array efficiently?</h2>
+
+            <label>
+                <input type="radio" name="q22" value="binary" required>
+                Binary Search
+            </label>
+
+            <label>
+                <input type="radio" name="q22" value="linear">
+                Linear Search
+            </label>
+
+            <label>
+                <input type="radio" name="q22" value="bubble">
+                Bubble Sort
+            </label>
+
+            <label>
+                <input type="radio" name="q22" value="dfs">
+                DFS
+            </label>
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 23 -->
+        <!-- ================================================= -->
+
+        <div class="question-card">
+            <div class="question-number">Question 23 / 30</div>
+
+            <h2>What is the typical time complexity of binary search?</h2>
+
+            <label>
+                <input type="radio" name="q23" value="logn" required>
+                O(log n)
+            </label>
+
+            <label>
+                <input type="radio" name="q23" value="on">
+                O(n)
+            </label>
+
+            <label>
+                <input type="radio" name="q23" value="n2">
+                O(n²)
+            </label>
+
+            <label>
+                <input type="radio" name="q23" value="1">
+                O(1)
+            </label>
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 24 -->
+        <!-- ================================================= -->
+
+        <div class="question-card">
+            <div class="question-number">Question 24 / 30</div>
+
+            <h2>Which technique is commonly used to solve maximum subarray sum efficiently?</h2>
+
+            <label>
+                <input type="radio" name="q24" value="kadane" required>
+                Kadane's Algorithm
+            </label>
+
+            <label>
+                <input type="radio" name="q24" value="bfs">
+                BFS
+            </label>
+
+            <label>
+                <input type="radio" name="q24" value="dfs">
+                DFS
+            </label>
+
+            <label>
+                <input type="radio" name="q24" value="binary">
+                Binary Search
+            </label>
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 25 -->
+        <!-- ================================================= -->
+
+        <div class="question-card">
+            <div class="question-number">Question 25 / 30</div>
+
+            <h2>Which concept is used when a problem is divided into smaller independent parts?</h2>
+
+            <label>
+                <input type="radio" name="q25" value="divide" required>
+                Divide and Conquer
+            </label>
+
+            <label>
+                <input type="radio" name="q25" value="hashing">
+                Hashing
+            </label>
+
+            <label>
+                <input type="radio" name="q25" value="stack">
+                Stack
+            </label>
+
+            <label>
+                <input type="radio" name="q25" value="queue">
+                Queue
+            </label>
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 26 -->
+        <!-- ================================================= -->
+
+        <div class="question-card">
+            <div class="question-number">Question 26 / 30</div>
+
+            <h2>Which data structure follows LIFO?</h2>
+
+            <label>
+                <input type="radio" name="q26" value="stack" required>
+                Stack
+            </label>
+
+            <label>
+                <input type="radio" name="q26" value="queue">
+                Queue
+            </label>
+
+            <label>
+                <input type="radio" name="q26" value="tree">
+                Tree
+            </label>
+
+            <label>
+                <input type="radio" name="q26" value="graph">
+                Graph
+            </label>
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 27 -->
+        <!-- ================================================= -->
+
+        <div class="question-card">
+            <div class="question-number">Question 27 / 30</div>
+
+            <h2>Which data structure follows FIFO?</h2>
+
+            <label>
+                <input type="radio" name="q27" value="queue" required>
+                Queue
+            </label>
+
+            <label>
+                <input type="radio" name="q27" value="stack">
+                Stack
+            </label>
+
+            <label>
+                <input type="radio" name="q27" value="tree">
+                Tree
+            </label>
+
+            <label>
+                <input type="radio" name="q27" value="heap">
+                Heap
+            </label>
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 28 -->
+        <!-- ================================================= -->
+
+        <div class="question-card">
+            <div class="question-number">Question 28 / 30</div>
+
+            <h2>Which traversal explores a graph level by level?</h2>
+
+            <label>
+                <input type="radio" name="q28" value="bfs" required>
+                BFS
+            </label>
+
+            <label>
+                <input type="radio" name="q28" value="dfs">
+                DFS
+            </label>
+
+            <label>
+                <input type="radio" name="q28" value="binary">
+                Binary Search
+            </label>
+
+            <label>
+                <input type="radio" name="q28" value="sorting">
+                Sorting
+            </label>
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 29 -->
+        <!-- ================================================= -->
+
+        <div class="question-card">
+            <div class="question-number">Question 29 / 30</div>
+
+            <h2>Which approach is strongly associated with Dynamic Programming?</h2>
+
+            <label>
+                <input type="radio" name="q29" value="subproblems" required>
+                Solving overlapping subproblems
+            </label>
+
+            <label>
+                <input type="radio" name="q29" value="random">
+                Random guessing
+            </label>
+
+            <label>
+                <input type="radio" name="q29" value="sorting">
+                Sorting only
+            </label>
+
+            <label>
+                <input type="radio" name="q29" value="printing">
+                Printing output
+            </label>
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- QUESTION 30 -->
+        <!-- ================================================= -->
+
+        <div class="question-card">
+            <div class="question-number">Question 30 / 30</div>
+
+            <h2>
+                What is the main purpose of analyzing time complexity?
+            </h2>
+
+            <label>
+                <input type="radio" name="q30" value="performance" required>
+                To understand algorithm performance as input grows
+            </label>
+
+            <label>
+                <input type="radio" name="q30" value="syntax">
+                To check Python syntax
+            </label>
+
+            <label>
+                <input type="radio" name="q30" value="output">
+                To predict exact output only
+            </label>
+
+            <label>
+                <input type="radio" name="q30" value="memory">
+                To rename variables
+            </label>
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- SUBMIT -->
+        <!-- ================================================= -->
+
+        <div class="assessment-submit">
+
+            <button type="submit" class="primary-btn">
+                🚀 Submit Assessment
+            </button>
+
+            <p>
+                Answer all 30 questions to discover your starting level.
+            </p>
+
+        </div>
+
+        <input type="hidden" name="score" id="score">
+
+
+    </form>
+
+</div>
+
+
+<script>
+
+const answers = {
+
+    q1: "print",
+    q2: "=",
+    q3: "8",
+    q4: "input",
+    q5: "%",
+    q6: "if",
+    q7: "int",
+    q8: "memoization",
+    q9: "list",
+    q10: "def",
+    q11: "length",
+    q12: "for",
+    q13: "0-4",
+    q14: "break",
+    q15: "continue",
+    q16: "dict",
+    q17: "set",
+    q18: "o1",
+    q19: "try",
+    q20: "self",
+    q21: "stop",
+    q22: "binary",
+    q23: "logn",
+    q24: "kadane",
+    q25: "divide",
+    q26: "stack",
+    q27: "queue",
+    q28: "bfs",
+    q29: "subproblems",
+    q30: "performance"
+
+};
+
+
+document.getElementById("assessmentForm").addEventListener(
+    "submit",
+    function(event) {
+
+        let score = 0;
+
+        for (let question in answers) {
+
+            const selected =
+                document.querySelector(
+                    `input[name="${question}"]:checked`
+                );
+
+            if (selected && selected.value === answers[question]) {
+                score++;
+            }
+        }
+
+        document.getElementById("score").value = score;
+
+    }
+);
+
+</script>
+
+
+<style>
+
+.assessment-page {
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+}
+
+.assessment-header {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.assessment-icons {
+    font-size: 55px;
+    margin-bottom: 15px;
+}
+
+.assessment-header h1 {
+    font-size: 42px;
+    margin-bottom: 12px;
+}
+
+.assessment-header p {
+    font-size: 18px;
+    opacity: 0.75;
+}
+
+.assessment-badge {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 10px 22px;
+    border-radius: 30px;
+    font-weight: bold;
+    background: rgba(255, 193, 7, 0.15);
+}
+
+.assessment-info {
+    margin-top: 12px;
+    line-height: 1.7;
+    opacity: 0.75;
+}
+
+.question-card {
+    margin-bottom: 25px;
+    padding: 28px;
+    border-radius: 18px;
+    border: 1px solid rgba(0,0,0,0.08);
+    background: rgba(255,255,255,0.75);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.question-number {
+    font-size: 14px;
+    font-weight: bold;
+    opacity: 0.6;
+    margin-bottom: 10px;
+}
+
+.question-card h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.question-card label {
+    display: block;
+    padding: 15px 18px;
+    margin: 10px 0;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.08);
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.question-card label:hover {
+    transform: translateX(4px);
+}
+
+.question-card input {
+    margin-right: 10px;
+}
+
+.assessment-submit {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.primary-btn {
+    border: none;
+    padding: 16px 35px;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.assessment-submit p {
+    margin-top: 15px;
+    opacity: 0.65;
+}
+
+code {
+    padding: 3px 7px;
+    border-radius: 5px;
+}
+
+</style>
+
+{% endblock %}

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="PyQuest — Learn Python. Level Up.">
+
+    <title>
+        {% block title %}
+        PyQuest | Learn Python. Level Up.
+        {% endblock %}
+    </title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- Main PyQuest CSS -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Page-specific CSS -->
+    {% block extra_css %}
+    {% endblock %}
+
+</head>
+
+
+<body>
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <nav class="navbar">
+
+        <a href="{{ url_for('index') }}"
+           class="brand">
+
+            <div class="brand-python">
+                🐍
+            </div>
+
+            <div>
+
+                <div class="brand-name">
+                    PYQUEST
+                </div>
+
+                <div class="brand-tagline">
+                    Learn Python. Level Up.
+                </div>
+
+            </div>
+
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('index') }}">
+                Home
+            </a>
+
+            {% if session.get('user_id') %}
+
+                <a href="{{ url_for('map_page') }}">
+                    🗺️ Quest Map
+                </a>
+
+                <a href="{{ url_for('certificate') }}">
+                    🏆 Certificates
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </nav>
+
+
+    <!-- =====================================================
+         FLASH MESSAGES
+    ====================================================== -->
+
+    <div class="flash-container">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                {% for category, message in messages %}
+
+                    <div class="flash-message {{ category }}">
+
+                        <span>
+                            {{ message }}
+                        </span>
+
+                        <button
+                            onclick="this.parentElement.remove()">
+                            ×
+                        </button>
+
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+    </div>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main>
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="site-footer">
+
+        <div class="footer-brand">
+            🐍 <strong>PYQUEST</strong>
+        </div>
+
+        <p>
+            Learn Python. Level Up. 🚀
+        </p>
+
+        <p class="copyright">
+            © 2026 PyQuest
+        </p>
+
+    </footer>
+
+
+    <!-- =====================================================
+         MAIN JAVASCRIPT
+    ====================================================== -->
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+
+    <!-- Page-specific JavaScript -->
+
+    {% block extra_js %}
+    {% endblock %}
+
+</body>
+
+</html>

@@ -1,0 +1,905 @@
+{% extends "base.html" %}
+
+{% block title %}
+Level {{ level_id }} | {{ level.title }} | PyQuest
+{% endblock %}
+
+
+{% block content %}
+
+<div class="concept-page">
+
+    <div class="concept-card">
+
+
+        <!-- ============================================= -->
+        <!-- TOP BAR -->
+        <!-- ============================================= -->
+
+        <div class="concept-top">
+
+            <div class="level-badge">
+
+                🐍 LEVEL {{ level_id }}
+
+            </div>
+
+
+            <div class="difficulty">
+
+                {% if level.difficulty %}
+                    {{ level.difficulty }}
+                {% else %}
+                    Challenge
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <!-- ============================================= -->
+        <!-- LEVEL PROGRESS -->
+        <!-- ============================================= -->
+
+        <div class="concept-progress">
+
+            <div class="concept-progress-info">
+
+                <span>
+                    QUEST PROGRESS
+                </span>
+
+                <strong>
+                    Level {{ level_id }} / 50
+                </strong>
+
+            </div>
+
+
+            <div class="concept-progress-bar">
+
+                <div
+                    class="concept-progress-fill"
+                    style="width: {{ (level_id / 50) * 100 }}%;"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ============================================= -->
+        <!-- HERO -->
+        <!-- ============================================= -->
+
+        <div class="concept-icon">
+
+            💡
+
+        </div>
+
+
+        <p class="concept-world">
+
+            🗺️ {{ level.world }}
+
+        </p>
+
+
+        <h1>
+
+            {{ level.title }}
+
+        </h1>
+
+
+        <div class="concept-name">
+
+            {{ level.concept }}
+
+        </div>
+
+
+        <!-- ============================================= -->
+        <!-- WHAT YOU'LL LEARN -->
+        <!-- ============================================= -->
+
+        <div class="concept-section learn-section">
+
+            <h2>
+
+                📚 What You'll Learn
+
+            </h2>
+
+
+            <p>
+
+                {{ level.explanation }}
+
+            </p>
+
+        </div>
+
+
+        <!-- ============================================= -->
+        <!-- THINK -->
+        <!-- ============================================= -->
+
+        <div class="concept-section">
+
+            <h2>
+
+                🧠 Think Like a Programmer
+
+            </h2>
+
+
+            <div class="pseudo-box">
+
+                {{ level.pseudo }}
+
+            </div>
+
+        </div>
+
+
+        <!-- ============================================= -->
+        <!-- CHALLENGE -->
+        <!-- ============================================= -->
+
+        <div class="concept-section">
+
+            <h2>
+
+                🎯 Your Challenge
+
+            </h2>
+
+
+            <div class="challenge-box">
+
+                <div class="challenge-label">
+
+                    CODING QUEST
+
+                </div>
+
+
+                <div class="challenge-text">
+
+                    {{ level.question }}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ============================================= -->
+        <!-- QUEST REWARD -->
+        <!-- ============================================= -->
+
+        <div class="reward-box">
+
+            <div class="reward-icon">
+
+                ⭐
+
+            </div>
+
+
+            <div>
+
+                <strong>
+
+                    Complete this quest!
+
+                </strong>
+
+
+                <p>
+
+                    Earn XP and unlock the next Python challenge.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ============================================= -->
+        <!-- ACTIONS -->
+        <!-- ============================================= -->
+
+        <div class="concept-actions">
+
+
+            <a
+                href="{{ url_for('map_page') }}"
+                class="back-button"
+            >
+
+                ← Back to Map
+
+            </a>
+
+
+            <a
+                href="{{ url_for(
+                    'level',
+                    level_id=level_id
+                ) }}"
+                class="continue-button"
+            >
+
+                🚀 Start Challenge
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<style>
+
+/* =========================================================
+   CONCEPT PAGE
+========================================================= */
+
+.concept-page {
+
+    min-height: 85vh;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 50px 20px;
+
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.concept-card {
+
+    width: 100%;
+
+    max-width: 850px;
+
+    padding: 50px;
+
+    border-radius: 28px;
+
+    background:
+
+        rgba(
+            255,
+            255,
+            255,
+            0.92
+        );
+
+    box-shadow:
+
+        0
+        20px
+        60px
+        rgba(
+            0,
+            0,
+            0,
+            0.12
+        );
+
+    border:
+
+        1px solid
+        rgba(
+            0,
+            0,
+            0,
+            0.08
+        );
+
+}
+
+
+/* =========================================================
+   TOP
+========================================================= */
+
+.concept-top {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 25px;
+
+}
+
+
+.level-badge {
+
+    padding:
+
+        9px
+        18px;
+
+    border-radius: 30px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    background:
+
+        rgba(
+            245,
+            166,
+            35,
+            0.18
+        );
+
+}
+
+
+.difficulty {
+
+    padding:
+
+        8px
+        16px;
+
+    border-radius: 30px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    background:
+
+        rgba(
+            76,
+            175,
+            80,
+            0.12
+        );
+
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.concept-progress {
+
+    margin-bottom: 35px;
+
+}
+
+
+.concept-progress-info {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 10px;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    opacity: 0.7;
+
+}
+
+
+.concept-progress-bar {
+
+    width: 100%;
+
+    height: 10px;
+
+    border-radius: 30px;
+
+    overflow: hidden;
+
+    background:
+
+        rgba(
+            0,
+            0,
+            0,
+            0.08
+        );
+
+}
+
+
+.concept-progress-fill {
+
+    height: 100%;
+
+    border-radius: 30px;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #f5a623,
+            #ffc107
+        );
+
+    transition:
+
+        width
+        0.5s
+        ease;
+
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.concept-icon {
+
+    font-size: 70px;
+
+    text-align: center;
+
+    margin-bottom: 15px;
+
+}
+
+
+.concept-world {
+
+    text-align: center;
+
+    font-size: 15px;
+
+    opacity: 0.6;
+
+    margin-bottom: 10px;
+
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.concept-card h1 {
+
+    text-align: center;
+
+    font-size: 42px;
+
+    margin:
+
+        10px
+        0;
+
+}
+
+
+.concept-name {
+
+    text-align: center;
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    margin-bottom: 45px;
+
+    opacity: 0.75;
+
+}
+
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+.concept-section {
+
+    margin-bottom: 30px;
+
+}
+
+
+.concept-section h2 {
+
+    font-size: 21px;
+
+    margin-bottom: 15px;
+
+}
+
+
+.concept-section p {
+
+    font-size: 17px;
+
+    line-height: 1.8;
+
+    opacity: 0.75;
+
+}
+
+
+.learn-section {
+
+    padding:
+
+        25px;
+
+    border-radius: 20px;
+
+    background:
+
+        rgba(
+            108,
+            99,
+            255,
+            0.05
+        );
+
+}
+
+
+/* =========================================================
+   PSEUDOCODE
+========================================================= */
+
+.pseudo-box {
+
+    padding:
+
+        22px;
+
+    border-radius: 16px;
+
+    font-family:
+
+        monospace;
+
+    font-size: 15px;
+
+    line-height: 1.8;
+
+    background:
+
+        rgba(
+            0,
+            0,
+            0,
+            0.05
+        );
+
+    white-space:
+
+        pre-wrap;
+
+}
+
+
+/* =========================================================
+   CHALLENGE
+========================================================= */
+
+.challenge-box {
+
+    padding:
+
+        25px;
+
+    border-radius: 18px;
+
+    background:
+
+        rgba(
+            245,
+            166,
+            35,
+            0.10
+        );
+
+    border:
+
+        1px solid
+        rgba(
+            245,
+            166,
+            35,
+            0.30
+        );
+
+}
+
+
+.challenge-label {
+
+    font-size: 11px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+    opacity: 0.55;
+
+    margin-bottom: 12px;
+
+}
+
+
+.challenge-text {
+
+    font-size: 17px;
+
+    line-height: 1.7;
+
+}
+
+
+/* =========================================================
+   REWARD
+========================================================= */
+
+.reward-box {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    padding:
+
+        20px
+        25px;
+
+    border-radius: 18px;
+
+    margin-top: 35px;
+
+    background:
+
+        rgba(
+            255,
+            193,
+            7,
+            0.10
+        );
+
+}
+
+
+.reward-icon {
+
+    font-size: 32px;
+
+}
+
+
+.reward-box strong {
+
+    font-size: 16px;
+
+}
+
+
+.reward-box p {
+
+    margin:
+
+        5px
+        0
+        0;
+
+    font-size: 14px;
+
+    opacity: 0.65;
+
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.concept-actions {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-top: 45px;
+
+    gap: 20px;
+
+}
+
+
+.back-button {
+
+    padding:
+
+        15px
+        22px;
+
+    border-radius: 14px;
+
+    text-decoration: none;
+
+    font-weight: 700;
+
+    color: inherit;
+
+    background:
+
+        rgba(
+            0,
+            0,
+            0,
+            0.06
+        );
+
+}
+
+
+.continue-button {
+
+    padding:
+
+        16px
+        28px;
+
+    border-radius: 14px;
+
+    text-decoration: none;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    color: white;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #6c63ff,
+            #4f9cff
+        );
+
+    box-shadow:
+
+        0
+        10px
+        25px
+        rgba(
+            108,
+            99,
+            255,
+            0.25
+        );
+
+    transition:
+
+        0.25s
+        ease;
+
+}
+
+
+.continue-button:hover {
+
+    transform:
+
+        translateY(-3px);
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (
+    max-width: 650px
+) {
+
+    .concept-card {
+
+        padding:
+
+            35px
+            22px;
+
+    }
+
+
+    .concept-card h1 {
+
+        font-size: 32px;
+
+    }
+
+
+    .concept-top {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 12px;
+
+    }
+
+
+    .concept-progress-info {
+
+        flex-direction: column;
+
+        gap: 5px;
+
+    }
+
+
+    .concept-actions {
+
+        flex-direction:
+
+            column;
+
+    }
+
+
+    .back-button,
+
+    .continue-button {
+
+        width: 100%;
+
+        text-align: center;
+
+        box-sizing:
+
+            border-box;
+
+    }
+
+}
+
+</style>
+
+{% endblock %}
