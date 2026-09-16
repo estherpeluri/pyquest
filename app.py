@@ -2,7 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, session
 import subprocess
 import tempfile
 import sqlite3
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
+import secrets
 
 
 # ============================================================
@@ -12,7 +13,14 @@ from datetime import date, datetime
 app = Flask(__name__)
 app.secret_key = "pyquest_secret_key_2026"
 
+# Keep the login/session alive so users can return to PyQuest
+# without being sent back to the assessment every time.
+app.permanent_session_lifetime = timedelta(days=365)
+app.config["SESSION_COOKIE_HTTPONLY"] = True
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+
 DATABASE = "pyquest.db"
+REMEMBER_COOKIE = "pyquest_remember"
 
 
 # ============================================================
@@ -78,7 +86,9 @@ def init_database():
 
             assessment_score INTEGER DEFAULT 0,
 
-            skill_level TEXT DEFAULT ''
+            skill_level TEXT DEFAULT '',
+
+            remember_token TEXT DEFAULT ''
 
         )
     """)
@@ -117,6 +127,14 @@ def init_database():
         cursor.execute(
             "ALTER TABLE users "
             "ADD COLUMN skill_level TEXT DEFAULT ''"
+        )
+
+
+    if not column_exists(connection, "users", "remember_token"):
+
+        cursor.execute(
+            "ALTER TABLE users "
+            "ADD COLUMN remember_token TEXT DEFAULT ''"
         )
 
 
@@ -1034,6 +1052,112 @@ worlds = [
 
 
 # ============================================================
+# PERSISTENT LOGIN / CONTINUE QUEST
+# ============================================================
+
+def create_remember_token():
+    """Create a strong random token used to restore a player's session."""
+    return secrets.token_urlsafe(32)
+
+
+def remember_current_user(response, user_id):
+    """
+    Store a persistent remember-me cookie for the current player.
+    The actual token is stored in SQLite, so the cookie is not just
+    a plain user ID.
+    """
+    connection = get_db()
+
+    player = connection.execute(
+        """
+        SELECT remember_token
+        FROM users
+        WHERE id = ?
+        """,
+        (user_id,)
+    ).fetchone()
+
+    if player is not None:
+        token = player["remember_token"] or ""
+
+        if not token:
+            token = create_remember_token()
+
+            connection.execute(
+                """
+                UPDATE users
+                SET remember_token = ?
+                WHERE id = ?
+                """,
+                (token, user_id)
+            )
+
+            connection.commit()
+
+        response.set_cookie(
+            REMEMBER_COOKIE,
+            token,
+            max_age=60 * 60 * 24 * 365,
+            httponly=True,
+            samesite="Lax"
+        )
+
+    connection.close()
+
+    return response
+
+
+@app.before_request
+def restore_login():
+    """
+    Restore the logged-in player from the persistent cookie when the
+    normal Flask session is missing. This is what lets PyQuest resume
+    instead of showing the assessment again after reopening the link.
+    """
+    if "user_id" in session:
+        session.permanent = True
+        return
+
+    token = request.cookies.get(REMEMBER_COOKIE)
+
+    if not token:
+        return
+
+    connection = get_db()
+
+    player = connection.execute(
+        """
+        SELECT id
+        FROM users
+        WHERE remember_token = ?
+        """,
+        (token,)
+    ).fetchone()
+
+    connection.close()
+
+    if player:
+        session.permanent = True
+        session["user_id"] = player["id"]
+
+
+@app.after_request
+def persist_login(response):
+    """
+    Make sure an existing logged-in user has a persistent remember
+    cookie. This also upgrades users who already had a session before
+    the new remember-token system was added.
+    """
+    user_id = session.get("user_id")
+
+    if user_id:
+        session.permanent = True
+        response = remember_current_user(response, user_id)
+
+    return response
+
+
+# ============================================================
 # GET CURRENT PLAYER
 # ============================================================
 
@@ -1161,11 +1285,14 @@ def create_profile():
         connection.commit()
         connection.close()
 
+        session.permanent = True
         session["user_id"] = user_id
 
-        return redirect(
+        response = redirect(
             url_for("assessment")
         )
+
+        return remember_current_user(response, user_id)
 
     return render_template(
         "create_profile.html"
@@ -1184,6 +1311,16 @@ def assessment():
 
     if "user_id" not in session:
         return redirect(url_for("start"))
+
+    # Returning users should never be forced through the assessment again.
+    player = get_current_player()
+
+    if player is None:
+        session.clear()
+        return redirect(url_for("start"))
+
+    if request.method == "GET" and (player["assessment_score"] or 0) > 0:
+        return redirect(url_for("map_page"))
 
     if request.method == "POST":
 
@@ -2393,9 +2530,13 @@ def logout():
 
     session.clear()
 
-    return redirect(
+    response = redirect(
         url_for("index")
     )
+
+    response.delete_cookie(REMEMBER_COOKIE)
+
+    return response
 
 
 # ============================================================
