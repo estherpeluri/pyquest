@@ -2465,10 +2465,8 @@ def internal_error(error):
 # ============================================================
 # START APPLICATION
 # ============================================================
-
+init_database()
 if __name__ == "__main__":
-
-    init_database()
 
     print()
 
